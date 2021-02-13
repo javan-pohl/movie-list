@@ -29,23 +29,20 @@ function App() {
   const [movies, setMovies] = useState([]);
 
   const renderPage = () => {
-    console.log('in App renderPage')
     if (!receivedMovies) {
       return (
-        <Link to='/Search'>
+        <Route path='/Search'>
           <Search />
-        </Link>
+        </Route>
       )
     }
   }
 
-  // render() {
-    return (
-      <div className="app">
-        {renderPage()}
-      </div>
-      )
-  // }
+  return (
+    <div className="app">
+      {renderPage()}
+    </div>
+  )
 };
 
 export default App;
