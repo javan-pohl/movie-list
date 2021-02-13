@@ -18,37 +18,46 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
-  Movie List
+
+  > Movie List
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-  Keep track of and find movies you may be interested in
+
+  >Keep track of and find movies you may be interested in
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-  Initial product will be a search function that returns movies based on a name search
+
+  >Initial product will be a search function that returns movies based on a name search
   clicking on a movie will show you information about the film and allow you to save the film to your list
 
 ## Problem ##
   > Describe the problem your product solves.
-  Forgetting what movies you want to see
+
+  >Forgetting what movies you want to see
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
-  No
+
+  >No
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
-  "Move lovers unite"
+
+  >"Movie lovers unite"
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
-  Create an account -> search for a movie you're interested in
+
+  >Create an account -> search for a movie you're interested in
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
-  "Using movie list increased my enjoyment of life tenfold"
+
+  >"Using movie list increased my enjoyment of life tenfold"
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
-  "Go to the app store and download it now"
+
+  >"Go to the app store and download it now"
