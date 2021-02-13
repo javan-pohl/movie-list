@@ -4,18 +4,10 @@ body, html {
   height: 100vh;
   background-color: aqua;
 }
-/*
-.app {
-  height: 100%;
-  width: 100%;
-  border: 1px solid black;
-} */
-
 :root {
   --search-height: 200px;
   --search-width: 400px;
 }
-
 #search {
   height: var(--search-height);
   margin-top: calc(var(--search-height)/-2);
@@ -26,8 +18,6 @@ body, html {
   left: 50%;
   position: fixed;
 }
-
-
 .center-text{
   text-align: center;
 }
