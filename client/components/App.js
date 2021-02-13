@@ -32,7 +32,11 @@ function App() {
     if (!receivedMovies) {
       return (
         <Route path='/Search'>
-          <Search value={searchTerm} onChange={handleSearchChange} />
+          <Search
+            value={searchTerm}
+            onChange={handleSearchChange}
+            onSubmit={handleSearchSubmit}
+          />
         </Route>
       )
     }
@@ -41,6 +45,11 @@ function App() {
   function handleSearchChange(event) {
     console.log(event.target.value);
     setSearchTerm(event.target.value);
+  }
+
+  function handleSearchSubmit(e) {
+    e.preventDefault();
+    alert(searchTerm);
   }
 
   return (
