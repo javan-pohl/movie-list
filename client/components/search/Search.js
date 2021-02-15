@@ -16,7 +16,9 @@ const Search = ({value, onChange, onSubmit}) => {
             <input
               value={value}
               onChange={(e) => onChange(e)}
-              type="text" name="name" />
+              type="text"
+              name="name"
+            />
           </label>
 
           <input type="submit" value="Submit" />
