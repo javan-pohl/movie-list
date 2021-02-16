@@ -8,6 +8,13 @@ body, html {
   --search-height: 200px;
   --search-width: 400px;
 }
+.movie-list {
+  margin: auto;
+  min-width: 1200px;
+  width: 60%;
+  min-height: 1800px;
+  background-color: grey;
+}
 #search {
   height: var(--search-height);
   margin-top: calc(var(--search-height)/-2);

@@ -22,7 +22,7 @@ const Search = ({value, onChange, onSubmit}) => {
             />
           </label>
 
-          <Link to={`/movies/`}><input type="submit" value="Submit" /></Link>
+          <input type="submit" value="Submit" />
         </form>
       </div>
     </div>
