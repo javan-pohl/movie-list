@@ -15,6 +15,18 @@ body, html {
   min-height: 1800px;
   background-color: grey;
 }
+.movie {
+  width: 90%;
+  margin: auto;
+  border: 1px solid black;
+  margin-top: 15px;
+  padding-bottom: 15px;
+}
+.movie-poster {
+  height: 150px;
+  width: 100px;
+  border: 1px solid black;
+}
 #search {
   height: var(--search-height);
   margin-top: calc(var(--search-height)/-2);
@@ -25,6 +37,9 @@ body, html {
   left: 50%;
   position: fixed;
 }
+.auto {
+  width: auto;
+}
 .center-text{
   text-align: center;
 }
@@ -34,9 +49,21 @@ body, html {
 .flex-center{
   justify-content: center;
 }
+.flex-column {
+  flex-direction: column;
+}
 .flex-parent{
   display: flex;
 }
+.flex-row {
+  flex-direction: row;
+}
 .flex-wrap-no{
   flex-wrap: nowrap;
+}
+.margin-left-15px {
+  margin-left: 15px;
+}
+.margin-bottom-15px {
+  margin-bottom: 15px;
 }

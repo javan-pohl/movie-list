@@ -42,24 +42,24 @@ function App() {
     return
   }
 
-  const renderMovieList = () => {
-    return (
-      <MovieList
-        receivedMovies={receivedMovies}
-        movies={movies}
-      />
-    )
-  }
+  // const renderMovieList = () => {
+  //   return (
+  //     <MovieList
+  //       receivedMovies={receivedMovies}
+  //       movies={movies}
+  //     />
+  //   )
+  // }
 
-  const renderSearch = () => {
-    return (
-      <Search
-        value={searchTerm}
-        onChange={handleSearchChange}
-        onSubmit={handleSearchSubmit}
-      />
-    )
-  }
+  // const renderSearch = () => {
+  //   return (
+  //     <Search
+  //       value={searchTerm}
+  //       onChange={handleSearchChange}
+  //       onSubmit={handleSearchSubmit}
+  //     />
+  //   )
+  // }
 
   const renderPage = () => {
     if (receivedMovies) {
