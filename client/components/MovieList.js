@@ -2,10 +2,12 @@ import React, { useState, Fragment } from 'react';
 import { HashRouter, Router, Route, Switch, Redirect, Link} from 'react-router-dom';
 import Movies from './Movies.js';
 
-const MovieList = ({receivedMovies, movieList, onClick}) => {
+// const MovieList = ({receivedMovies, movieList, onClick, onSave}) => {
+const MovieList = ({receivedMovies, movieList, onSave}) => {
+
   let movies = movieList.map((movie, index) => {
     return (
-      <Movies movie={movie} key={index} onClick={() => onClick({index})}/>
+      <Movies movie={movie} key={index} onSave={() => onSave({movie})}/>
     )
   })
   console.log(movies);

@@ -14,24 +14,35 @@ function App() {
   const [selectedMovie, setSelectedMovie] = useState('');
   const [receivedMovies, setReceivedMovies] = useState(false);
 
-  function handleMovieSelect(movie) {
-    console.log(movie);
-    alert(movie.index);
-    setSelectedMovie(movies[movie.index]);
-    handleShowMovie();
-  }
+  // function handleMovieSelect(movie) {
+  //   console.log(movies[movie.index]);
+  //   setSelectedMovie(movies[movie.index]);
+  //   alternateShowMovie();
+  // }
 
   function handleSearchChange(event) {
     console.log(event.target.value);
     setSearchTerm(event.target.value);
   }
 
-  function handleShowMovie() {
-    showMovie ? setShowMovie(false) : setShowMovie(true);
-  }
+  // function handleShowMovie() {
+  //   console.log('show movie')
+  //   setShowMovie(true);
+  // }
 
-  function handleHideMovie() {
-    setShowMovie(false);
+  // function handleHideMovie() {
+  //   console.log('hide movie')
+  //   setShowMovie(false);
+  // }
+
+  // function alternateShowMovie() {
+  //   // console.log('hide movie')
+  //   showMovie ? setShowMovie(false) : setShowMovie(true);
+  // }
+
+  function handleSave(movie) {
+    console.log('movie saved');
+    console.log(movie);
   }
 
   async function handleSearchSubmit(e) {
@@ -62,10 +73,10 @@ function App() {
       return (
         <React.Fragment>
 
-          <SelectedMovie
-            movie={selectedMovie}
-            display={showMovie}
-            onClick={handleShowMovie}
+          <MovieList
+            movieList={movies}
+            receivedMovies={receivedMovies}
+            onSave={(movie) => handleSave(movie)}
           />
         </React.Fragment>
       )
@@ -81,7 +92,7 @@ function App() {
   }
 
   return (
-    <div className="app" onClick={handleHideMovie}>
+    <div className="app">
       {renderPage()}
     </div>
   )
