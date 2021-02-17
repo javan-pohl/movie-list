@@ -3,20 +3,35 @@ import { HashRouter, Router, Route, Switch, Redirect, Link} from 'react-router-d
 import axios from 'axios';
 import Search from './Search.js';
 import MovieList from './MovieList.js';
-
-
+import SelectedMovie from './SelectedMovie.js';
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
   const [pageNum, setPageNum] = useState(1);
-  const [exactMovie, setExactMovie] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [showMovie, setShowMovie] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedMovie, setSelectedMovie] = useState('');
   const [receivedMovies, setReceivedMovies] = useState(false);
+
+  function handleMovieSelect(movie) {
+    console.log(movie);
+    alert(movie.index);
+    setSelectedMovie(movies[movie.index]);
+    handleShowMovie();
+  }
 
   function handleSearchChange(event) {
     console.log(event.target.value);
     setSearchTerm(event.target.value);
+  }
+
+  function handleShowMovie() {
+    showMovie ? setShowMovie(false) : setShowMovie(true);
+  }
+
+  function handleHideMovie() {
+    setShowMovie(false);
   }
 
   async function handleSearchSubmit(e) {
@@ -42,33 +57,17 @@ function App() {
     return
   }
 
-  // const renderMovieList = () => {
-  //   return (
-  //     <MovieList
-  //       receivedMovies={receivedMovies}
-  //       movies={movies}
-  //     />
-  //   )
-  // }
-
-  // const renderSearch = () => {
-  //   return (
-  //     <Search
-  //       value={searchTerm}
-  //       onChange={handleSearchChange}
-  //       onSubmit={handleSearchSubmit}
-  //     />
-  //   )
-  // }
-
   const renderPage = () => {
     if (receivedMovies) {
       return (
-        <MovieList
-        movieList={movies}
-        receivedMovies={receivedMovies}
-        movies={movies}
-      />
+        <React.Fragment>
+
+          <SelectedMovie
+            movie={selectedMovie}
+            display={showMovie}
+            onClick={handleShowMovie}
+          />
+        </React.Fragment>
       )
     } else {
       return (
@@ -81,9 +80,8 @@ function App() {
     }
   }
 
-
   return (
-    <div className="app">
+    <div className="app" onClick={handleHideMovie}>
       {renderPage()}
     </div>
   )

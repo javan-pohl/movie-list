@@ -7,10 +7,12 @@ body, html {
 :root {
   --search-height: 200px;
   --search-width: 400px;
+  --popup-height: 1000px;
+  --popup-width: 1000px;
 }
 .movie-list {
   margin: auto;
-  min-width: 1200px;
+  max-width: 1200px;
   width: 60%;
   min-height: 1800px;
   background-color: grey;
@@ -26,6 +28,16 @@ body, html {
   height: 150px;
   width: 100px;
   border: 1px solid black;
+}
+.movie-popup {
+  left: 50%;
+  margin-left: -25%;
+  width: 70%;
+  height: 1000px;
+  max-width: 1000px;
+  position: absolute;
+  background-color: white;
+  z-index: 9;
 }
 #search {
   height: var(--search-height);
