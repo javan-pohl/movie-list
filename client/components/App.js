@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from 'react';
-import { HashRouter, Router, Route, Switch, Redirect, Link} from 'react-router-dom';
+// import { HashRouter, Router, Route, Switch, Redirect, Link} from 'react-router-dom';
 import axios from 'axios';
+import Login from './Login.js';
 import Search from './Search.js';
 import MovieList from './MovieList.js';
 import SelectedMovie from './SelectedMovie.js';
@@ -19,6 +20,9 @@ function App() {
   //   setSelectedMovie(movies[movie.index]);
   //   alternateShowMovie();
   // }
+  function handleLogin(response) {
+
+  }
 
   function handleSearchChange(event) {
     console.log(event.target.value);
@@ -69,24 +73,32 @@ function App() {
   }
 
   const renderPage = () => {
-    if (receivedMovies) {
-      return (
-        <React.Fragment>
+    if(loggedIn) {
+      if (receivedMovies) {
+        return (
+          <React.Fragment>
 
-          <MovieList
-            movieList={movies}
-            receivedMovies={receivedMovies}
-            onSave={(movie) => handleSave(movie)}
-          />
-        </React.Fragment>
-      )
+            <MovieList
+              movieList={movies}
+              receivedMovies={receivedMovies}
+              onSave={(movie) => handleSave(movie)}
+            />
+          </React.Fragment>
+        )
+      } else {
+        return (
+          <Search
+          value={searchTerm}
+          onChange={handleSearchChange}
+          onSubmit={handleSearchSubmit}
+        />
+        )
+      }
     } else {
       return (
-        <Search
-        value={searchTerm}
-        onChange={handleSearchChange}
-        onSubmit={handleSearchSubmit}
-      />
+        <Login
+          handleLogin={(response) => handleLogin(response)}
+        />
       )
     }
   }
