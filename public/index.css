@@ -10,6 +10,16 @@ body, html {
   --popup-height: 1000px;
   --popup-width: 1000px;
 }
+.app {
+  min-height: 100vh;
+  position: relative;
+}
+.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .movie-list {
   margin: auto;
   max-width: 1200px;

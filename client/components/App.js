@@ -20,8 +20,22 @@ function App() {
   //   setSelectedMovie(movies[movie.index]);
   //   alternateShowMovie();
   // }
-  function handleLogin(response) {
 
+  function createUser({bT, dR, fI, kt, sd, wR}) {
+    let user = {};
+    user["firstName"] = bT;
+    user["lastName"] = dR;
+    user["picUrl"] = fI;
+    user["email"] = kt;
+    user["displayName"] = sd;
+    user["googleId"] = wR;
+    console.log('user test, firstName: ', user)
+
+  }
+
+  function handleLogin(response) {
+    console.log(response.Es)
+    createUser(response.Es);
   }
 
   function handleSearchChange(event) {
@@ -97,7 +111,7 @@ function App() {
     } else {
       return (
         <Login
-          handleLogin={(response) => handleLogin(response)}
+          handleLogin={handleLogin}
         />
       )
     }
