@@ -30,7 +30,7 @@ function App() {
     user["displayName"] = sd;
     user["googleId"] = wR;
     console.log('user test, firstName: ', user)
-
+    setLoggedIn(true);
   }
 
   function handleLogin(response) {
@@ -91,7 +91,6 @@ function App() {
       if (receivedMovies) {
         return (
           <React.Fragment>
-
             <MovieList
               movieList={movies}
               receivedMovies={receivedMovies}
