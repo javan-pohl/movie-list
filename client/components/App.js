@@ -37,32 +37,18 @@ function App() {
 
   function handleLogin(response) {
     // console.log(response.Es)
+    sendUser(response.Es)
     createUser(response.Es);
   }
 
   function handleSearchChange(event) {
-    // console.log(event.target.value);
     setSearchTerm(event.target.value);
   }
 
-  // function handleShowMovie() {
-  //   console.log('show movie')
-  //   setShowMovie(true);
-  // }
-
-  // function handleHideMovie() {
-  //   console.log('hide movie')
-  //   setShowMovie(false);
-  // }
-
-  // function alternateShowMovie() {
-  //   // console.log('hide movie')
-  //   showMovie ? setShowMovie(false) : setShowMovie(true);
-  // }
-
   function handleSave(movie) {
     console.log('movie saved');
-    console.log(movie);
+    // console.log(movie);
+    sendMovie(movie);
   }
 
   async function handleSearchSubmit(e) {
@@ -79,6 +65,30 @@ function App() {
         return data.data.results
       })
       .catch(err => console.log('get error: ', err));
+  }
+
+  function sendUser(user) {
+    axios({
+      method: 'post',
+      url: '/createUser',
+      data: user
+    })
+    .then(data => console.log('sendUser success: ', data))
+    .catch(err => console.log('sendUser error: ', err))
+  }
+
+  function sendMovie(movieInfo) {
+    console.log('in send movie, user: ', user);
+    axios({
+      method: 'post',
+      url: '/saveMovie',
+      data: {
+        googleId: user.googleId,
+        movie: movieInfo.movie
+      }
+    })
+    .then(data => console.log('sendUser success: ', data))
+    .catch(err => console.log('sendUser error: ', err))
   }
 
   async function setMoviesState(movies) {
