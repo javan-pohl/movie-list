@@ -1,12 +1,13 @@
+import axios from 'axios';
 import React, { useState, Fragment } from 'react';
 // import { HashRouter, Router, Route, Switch, Redirect, Link} from 'react-router-dom';
-import axios from 'axios';
 import Login from './Login.js';
 import Search from './Search.js';
 import MovieList from './MovieList.js';
 import SelectedMovie from './SelectedMovie.js';
 
 function App() {
+  const [user, setUser] = useState({});
   const [movies, setMovies] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,17 +30,18 @@ function App() {
     user["email"] = kt;
     user["displayName"] = sd;
     user["googleId"] = wR;
-    console.log('user test, firstName: ', user)
+    console.log('user: ', user);
+    setUser(user);
     setLoggedIn(true);
   }
 
   function handleLogin(response) {
-    console.log(response.Es)
+    // console.log(response.Es)
     createUser(response.Es);
   }
 
   function handleSearchChange(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setSearchTerm(event.target.value);
   }
 
