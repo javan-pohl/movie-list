@@ -33,7 +33,7 @@
     "livereload": "^0.9.1",
     "lodash": "^4.17.20",
     "mongodb": "^2.2.33",
-    "mongoose": "^4.11.6",
+    "mongoose": "^4.13.21",
     "morgan": "1.9.1",
     "mysql": "^2.18.1",
     "prop-types": "^15.7.2",

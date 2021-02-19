@@ -1,12 +1,13 @@
+import axios from 'axios';
 import React, { useState, Fragment } from 'react';
 // import { HashRouter, Router, Route, Switch, Redirect, Link} from 'react-router-dom';
-import axios from 'axios';
 import Login from './Login.js';
 import Search from './Search.js';
 import MovieList from './MovieList.js';
 import SelectedMovie from './SelectedMovie.js';
 
 function App() {
+  const [user, setUser] = useState({});
   const [movies, setMovies] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,38 +30,25 @@ function App() {
     user["email"] = kt;
     user["displayName"] = sd;
     user["googleId"] = wR;
-    console.log('user test, firstName: ', user)
-
+    console.log('user: ', user);
+    setUser(user);
+    setLoggedIn(true);
   }
 
   function handleLogin(response) {
-    console.log(response.Es)
+    // console.log(response.Es)
+    sendUser(response.Es)
     createUser(response.Es);
   }
 
   function handleSearchChange(event) {
-    console.log(event.target.value);
     setSearchTerm(event.target.value);
   }
 
-  // function handleShowMovie() {
-  //   console.log('show movie')
-  //   setShowMovie(true);
-  // }
-
-  // function handleHideMovie() {
-  //   console.log('hide movie')
-  //   setShowMovie(false);
-  // }
-
-  // function alternateShowMovie() {
-  //   // console.log('hide movie')
-  //   showMovie ? setShowMovie(false) : setShowMovie(true);
-  // }
-
   function handleSave(movie) {
     console.log('movie saved');
-    console.log(movie);
+    // console.log(movie);
+    sendMovie(movie);
   }
 
   async function handleSearchSubmit(e) {
@@ -79,6 +67,30 @@ function App() {
       .catch(err => console.log('get error: ', err));
   }
 
+  function sendUser(user) {
+    axios({
+      method: 'post',
+      url: '/createUser',
+      data: user
+    })
+    .then(data => console.log('sendUser success: ', data))
+    .catch(err => console.log('sendUser error: ', err))
+  }
+
+  function sendMovie(movieInfo) {
+    console.log('in send movie, user: ', user);
+    axios({
+      method: 'post',
+      url: '/saveMovie',
+      data: {
+        googleId: user.googleId,
+        movie: movieInfo.movie
+      }
+    })
+    .then(data => console.log('sendUser success: ', data))
+    .catch(err => console.log('sendUser error: ', err))
+  }
+
   async function setMoviesState(movies) {
     console.log(movies);
     await setMovies(movies);
@@ -91,7 +103,6 @@ function App() {
       if (receivedMovies) {
         return (
           <React.Fragment>
-
             <MovieList
               movieList={movies}
               receivedMovies={receivedMovies}
