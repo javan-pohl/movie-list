@@ -78,7 +78,7 @@ function App() {
   }
 
   function sendMovie(movieInfo) {
-    console.log('in send movie, user: ', user);
+    // console.log('in send movie, user: ', user);
     axios({
       method: 'post',
       url: '/saveMovie',

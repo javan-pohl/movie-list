@@ -43,7 +43,7 @@ let testUser = {
 
 function insertUser(user, res) {
   // user = req.body.user;
-  console.log('insertUser, user: ', user)
+  // console.log('insertUser, user: ', user)
   let table = `USERS`;
   let sql = `INSERT IGNORE INTO ${table}(GOOGLEID, FIRSTNAME, LASTNAME, PICURL, EMAIL, DISPLAYNAME) VALUES('${user.wR}', '${user.bT}', '${user.dR}', '${user.fI}', '${user.kt}', '${user.sd}')`;
   let database = new Database(config);
@@ -60,26 +60,30 @@ function insertUser(user, res) {
     })
 }
 
-function saveMovieInfo({id, title, vote_average, overview, poster_url}) {
+function saveMovieInfo({id, title, vote_average, overview, poster_path}) {
+  overview = overview.replace(/"/g, "'");
+  overview = overview.replace(/--/g, "");
+  console.log('overview length: ', overview.length);
+  console.log('new overview: ', overview);
   let table = `MOVIES`;
-  let sql = `INSERT IGNORE INTO ${table}(MOVIEID, TITLE, DESC_BODY, SCORE, POSTER) VALUES('${id}', '${title}', '${overview}', '${vote_average}', '${poster_url}')`;
+  let sql = `INSERT IGNORE INTO ${table}(MOVIEID, TITLE, DESC_BODY, SCORE, POSTER) VALUES("${id}", "${title}", "${overview}", "${vote_average}", "${poster_path}")`;
   let database = new Database(config);
   database.query(sql)
     .then(() => {
-      console.log('added to list!')
+      console.log('saved movieInfo!')
       // because this one is designed to be called alongside another that will send back an http response, we can send back two
       // res.status(200).send('successfully added to list!')
       database.close()
     })
     .catch(err => {
-      console.log('add to list error: ', err)
+      console.log('save movieInfo error: ', err)
       // res.status(404).send(err)
       database.close();
     })
 }
 
 function saveToList(googleId, movieId, res) {
-  console.log('saveToList, googleid & movieId: ', googleId, movieId);
+  // console.log('saveToList, googleid & movieId: ', googleId, movieId);
   // let googleId = userId;
   // let movieId = id;
   let id = '' + googleId + movieId;
