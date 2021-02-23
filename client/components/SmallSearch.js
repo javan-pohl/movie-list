@@ -2,17 +2,16 @@ import React from 'react';
 import { HashRouter, Router, Route, Switch, Redirect, Link} from 'react-router-dom';
 
 
-const Search = ({value, onChange, onSubmit}) => {
+const SmallSearch = ({value, onChange, onSubmit}) => {
+  console.log('in Search');
   return (
-    <div id="search" className="centered flex-parent flex-wrap-no flex-align-center flex-center">
+    <div id="small-search" className="small-search inline-block">
       <div>
 
-        <form className="center-text" onSubmit={(e) => onSubmit(e)} >
+        <form className="center-text inline-block" onSubmit={(e) => onSubmit(e)} >
 
           <label>
-          Enter the name of a film or tv show:
-            <br></br>
-
+          Search:
             <input
               value={value}
               onChange={(e) => onChange(e)}
@@ -28,4 +27,4 @@ const Search = ({value, onChange, onSubmit}) => {
   )
 }
 
-export default Search;
+export default SmallSearch;

@@ -10,9 +10,9 @@ const MovieList = ({receivedMovies, movieList, onSave}) => {
       <Movies movie={movie} key={index} onSave={() => onSave({movie})}/>
     )
   })
-  console.log(movies);
+  // console.log(movies);
   return (
-    <div className="movie-list flex-parent flex-column">
+    <div className="movie-list flex-parent flex-column flex-justify-start">
       {movies}
     </div>
   )
