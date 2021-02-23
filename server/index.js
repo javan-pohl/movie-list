@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 // database
 // const db = require('../database/getProps.js');
 
-app.get('/:search-term', cors(), (req, res) => {
+app.get('/list/:user', cors(), (req, res) => {
   // db.getById(req, res);
   // console.log(req.body);
 });
@@ -38,6 +38,7 @@ app.get('/:search-term', cors(), (req, res) => {
 app.post('/createUser', cors(), (req, res) => {
   // console.log('in create user, req.body: ', req.body)
   db.insertUser(req.body, res)
+  /// oohh, here's where we can get list if it exists
 
 });
 
