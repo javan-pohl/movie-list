@@ -1,8 +1,8 @@
 
 body, html {
-  min-height: 100vh;
-  height: 100vh;
-  background-color: aqua;
+  min-height: 100%;
+  height: 100%;
+  background-color: white;
   margin: 0;
   padding: 0;
 }
@@ -12,9 +12,14 @@ body, html {
   --popup-height: 1000px;
   --popup-width: 1000px;
 }
+#main {
+  height: 100%;
+  width: 100%;
+}
 .app {
-  min-height: 100vh;
-  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
 }
 .login {
   position: absolute;
