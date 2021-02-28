@@ -12,8 +12,9 @@ import Container from '@material-ui/core/Container'
 
 // const MovieList = ({receivedMovies, movieList, onClick, onSave}) => {
 const MovieList = ({ receivedMovies, movieList, onSave }) => {
+  let initial=1000
   let movies = movieList.map((movie, index) => {
-    return <Movies movie={movie} key={index} onSave={() => onSave({ movie })} />
+    return <Movies movie={movie} key={index} onSave={() => onSave({ movie })} time={index * 500} />
   })
   // console.log(movies);
   return (
