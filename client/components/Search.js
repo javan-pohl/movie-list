@@ -13,8 +13,10 @@ import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
 import { render } from 'react-dom'
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper';
-import { shadows } from '@material-ui/system';
+import Paper from '@material-ui/core/Paper'
+import { shadows } from '@material-ui/system'
+import SearchIcon from '@material-ui/icons/Search'
+import Fade from '@material-ui/core/Fade'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,8 +27,8 @@ const useStyles = makeStyles(theme => ({
     paper: {
       padding: 5,
       textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
+      color: theme.palette.text.secondary
+    }
   }
 }))
 
@@ -42,14 +44,37 @@ const Search = ({ value, onChange, onSubmit }) => {
       direction="column"
       style={{ backgroundColor: 'teal' }}
     >
-      <Grid >
-        <Box className={classes.paper} style={{ padding: 15, backgroundColor: 'yellow', borderRadius: 10}} boxShadow={5}>
-          <h2>Enter the name of a movie or tv show:</h2>
-          <form noValidate autoComplete="off" onSubmit={e => onSubmit(e)}>
-            <TextField id="outlined-basic" variant="outlined" value={value} onChange={e => onChange(e)} />
-          </form>
-        </Box>
-      </Grid>
+      <Fade in={true} timeout={1000}>
+        <Grid>
+          <Box
+            className={classes.paper}
+            style={{ padding: 15, backgroundColor: 'yellow', borderRadius: 6 }}
+            boxShadow={5}
+          >
+            <h2>Enter the name of a movie or tv show:</h2>
+            <form autoComplete="off" onSubmit={e => onSubmit(e)} noValidate>
+              <TextField
+                id="outlined-basic"
+                size="small"
+                style={{ background: 'white', color: 'black' }}
+                variant="outlined"
+                value={value}
+                onChange={e => onChange(e)}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                disableElevation
+                size="small"
+                style={{ margin: 2, minWidth: '24px' }}
+                onClick={e => onSubmit(e)}
+              >
+                <SearchIcon />
+              </Button>
+            </form>
+          </Box>
+        </Grid>
+      </Fade>
     </Grid>
   )
 }
