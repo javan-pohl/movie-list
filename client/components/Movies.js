@@ -1,11 +1,13 @@
 import React, { useState, Fragment } from 'react'
-import Fade from '@material-ui/core/Fade'
+// import Fade from '@material-ui/core/Fade'
 import Flip from 'react-reveal/Flip'
+
+import Fade from 'react-reveal/Fade'
 
 const Movies = ({ movie, onSave, time }) => {
   const poster_url = `https://image.tmdb.org/t/p/w200${movie.poster_path}`
   return (
-    <Flip bottom animationDelay={time}>
+    <Fade  delay={time} duration={1000}>
       <div
         className="movie movie-shadow flex-parent flex-column"
         key={movie.id}
@@ -40,7 +42,7 @@ const Movies = ({ movie, onSave, time }) => {
           <div className="movie-desc margin-left-15px">{movie.overview}</div>
         </div>
       </div>
-    </Flip>
+    </Fade>
   )
 }
 
