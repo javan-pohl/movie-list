@@ -1,5 +1,5 @@
-
-body, html {
+body,
+html {
   min-height: 100%;
   height: 100%;
   background-color: teal;
@@ -28,24 +28,27 @@ body, html {
   transform: translate(-50%, -50%);
 }
 .movie-list {
+  position: relative;
   margin: auto;
+  margin-top: 10px;
   max-width: 1200px;
   width: 60%;
   min-height: 1800px;
   background-color: grey;
+  z-index: 0;
+
 }
 .movie {
   width: 90%;
   margin: auto;
-  border: 1px solid black;
   margin-top: 15px;
-  padding-top: 1px;
-  padding-bottom: 15px;
+  padding: 15px;
+  background-color: rgb(221, 230, 241);
+  border-radius: 5px;
 }
 .movie-poster {
   height: 150px;
   width: 100px;
-  border: 1px solid black;
 }
 .movie-popup {
   left: 50%;
@@ -74,20 +77,20 @@ body, html {
   padding: 5px 8px 5px 8px;
   border-radius: 5px;
 }
-.my-list-button:hover{
+.my-list-button:hover {
   cursor: pointer;
 }
-.my-list-button:active{
-  background-color:rgb(80, 183, 224);
+.my-list-button:active {
+  background-color: rgb(80, 183, 224);
 }
 .save-button {
   height: auto;
 }
 #search {
   height: var(--search-height);
-  margin-top: calc(var(--search-height)/-2);
+  margin-top: calc(var(--search-height) / -2);
   width: var(--search-width);
-  margin-left: calc(var(--search-width)/-2);
+  margin-left: calc(var(--search-width) / -2);
   background-color: grey;
   top: 50%;
   left: 50%;
@@ -96,7 +99,7 @@ body, html {
 .auto {
   width: auto;
 }
-.center-text{
+.center-text {
   text-align: center;
 }
 .display-false {
@@ -105,7 +108,7 @@ body, html {
 .flex-align-center {
   align-items: center;
 }
-.flex-center{
+.flex-center {
   justify-content: center;
 }
 .flex-column {
@@ -114,13 +117,13 @@ body, html {
 .flex-justify-start {
   justify-content: start;
 }
-.flex-parent{
+.flex-parent {
   display: flex;
 }
 .flex-row {
   flex-direction: row;
 }
-.flex-wrap-no{
+.flex-wrap-no {
   flex-wrap: nowrap;
 }
 .float-left {
@@ -147,3 +150,45 @@ body, html {
 .padding {
   padding-top: 45%;
 }
+
+/*==================================================
+ * Effect 2
+ * ===============================================*/
+ .effect2
+ {
+   position: relative;
+ }
+ .effect2:before, .effect2:after
+ {
+   z-index: -1;
+   position: absolute;
+   content: "";
+   bottom: 15px;
+   left: 10px;
+   width: 50%;
+   top: 80%;
+   max-width:300px;
+   background: #777;
+   -webkit-box-shadow: 0 15px 10px #777;
+   -moz-box-shadow: 0 15px 10px #777;
+   box-shadow: 0 15px 10px #777;
+   -webkit-transform: rotate(-3deg);
+   -moz-transform: rotate(-3deg);
+   -o-transform: rotate(-3deg);
+   -ms-transform: rotate(-3deg);
+   transform: rotate(-3deg);
+ }
+ .effect2:after
+ {
+   -webkit-transform: rotate(3deg);
+   -moz-transform: rotate(3deg);
+   -o-transform: rotate(3deg);
+   -ms-transform: rotate(3deg);
+   transform: rotate(3deg);
+   right: 10px;
+   left: auto;
+ }
+
+ .movie-shadow {
+  box-shadow: rgb(0, 0, 0) 0px 5px 15px;
+ }
