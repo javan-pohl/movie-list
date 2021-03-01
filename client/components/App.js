@@ -5,6 +5,7 @@ import Login from './Login.js'
 import Search from './Search.js'
 import NavBar from './NavBar.js'
 import MovieList from './MovieList.js'
+import MovieMural from './MovieMural.js'
 import SelectedMovie from './SelectedMovie.js'
 
 function App() {
@@ -144,11 +145,13 @@ function App() {
               onSubmit={handleSearchSubmit}
               handleMyListClick={handleMyListClick}
             />
-            <MovieList
-              movieList={movieList}
-              receivedMovies={receivedMovies}
-              onSave={movie => handleSave(movie)}
-            />
+            <div className="app">
+              <MovieMural
+                movieList={movieList}
+                receivedMovies={receivedMovies}
+                onSave={movie => handleSave(movie)}
+              />
+            </div>
           </React.Fragment>
         )
       } else {

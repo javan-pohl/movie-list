@@ -42,6 +42,7 @@
     "prop-types": "^15.7.2",
     "pstree.remy": "^1.1.8",
     "react": "^17.0.1",
+    "react-awesome-reveal": "^3.7.0",
     "react-dom": "^17.0.1",
     "react-google-login": "^5.2.2",
     "react-reveal": "^1.2.2",
