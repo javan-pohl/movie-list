@@ -18,28 +18,19 @@ const MovieList = ({ receivedMovies, movieList, onSave }) => {
     }
   })
   return (
-    <Grid
-      container
-      spacing={2}
-      align="center"
-      alignItems="center"
-      justify="center"
-      direction="column"
-      style={{ backgroundColor: 'teal' }}
-    >
-      <Container maxWidth="sm">
-        <Grid
-          container
-          spacing={5}
-          align="center"
-          alignItems="center"
-          justify="center"
-          direction="row"
-        >
-          {movies}
-        </Grid>
-      </Container>
-    </Grid>
+    <Container maxWidth="md">
+      <Grid
+        container
+        spacing={1}
+        align="center"
+        alignItems="center"
+        justify="center"
+        direction="row"
+        style={{ marginTop: '5%' }}
+      >
+        {movies}
+      </Grid>
+    </Container>
   )
 }
 
