@@ -15,9 +15,18 @@ const Movies = ({ movie, onSave, time }) => {
             </div>
           </div>
           <div className="flip-card-back">
-            <div>
-              <img src={poster_url} className="movie-poster"></img>
-            </div>
+            <Grid
+              container
+              spacing={0}
+              align="center"
+              alignItems="center"
+              justify="center"
+              direction="column"
+            >
+              <Grid item>Hullo Thar!</Grid>
+
+              <Grid item>Hullo Thar!</Grid>
+            </Grid>
           </div>
         </div>
       </div>
