@@ -3,11 +3,20 @@ import React, { useState, Fragment } from 'react'
 import Fade from 'react-reveal/Fade'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import StarIcon from '@material-ui/icons/Star'
 import IconButton from '@material-ui/core/IconButton'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-const Movies = ({ movie, onSave, time }) => {
+const Movies = ({ movie, onSave, time, saved }) => {
+  console.log('is movie in mylist?: ', saved)
+  const showStar = () =>
+    saved ? (
+      <StarIcon fontSize="large" style={{ color: 'yellow' }} />
+    ) : (
+      <StarBorderIcon fontSize="large" />
+    )
+
   const poster_url = `https://image.tmdb.org/t/p/w200${movie.poster_path}`
   return (
     <Grid item>
@@ -28,9 +37,7 @@ const Movies = ({ movie, onSave, time }) => {
               direction="column"
             >
               <Grid item>
-                <IconButton onClick={() => onSave()}>
-                  <StarBorderIcon fontSize="large" />
-                </IconButton>
+                <IconButton onClick={() => onSave()}>{showStar()}</IconButton>
               </Grid>
 
               <Grid item>

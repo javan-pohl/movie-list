@@ -69,6 +69,7 @@ function App() {
     axios
       .get(`/list/${user.googleId}`)
       .then(data => {
+        console.log('raw data from db: ', data)
         let movies = []
         data.data.forEach(val => movies.push(val))
         console.log('getList client movies: ', movies)
@@ -111,6 +112,7 @@ function App() {
         data.data.forEach(movie => {
           let obj = {}
           // obj
+          obj['id'] = movie.MOVIEID
           obj['title'] = movie.TITLE
           obj['poster_path'] = movie.POSTER
           obj['vote_average'] = movie.SCORE
