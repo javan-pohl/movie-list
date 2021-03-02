@@ -3,7 +3,8 @@ import Movies from './MoviesM.js'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 
-const MovieList = ({ receivedMovies, movieList, onSave }) => {
+const MovieList = ({ receivedMovies, movieList, savedMovies, onSave }) => {
+  console.log('movieList: ', savedMovies)
   let initial = 1000
   let movies = movieList.map((movie, index) => {
     if (movie.poster_path) {

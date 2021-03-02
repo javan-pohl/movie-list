@@ -13,29 +13,33 @@ function App() {
   const [movies, setMovies] = useState([])
   const [myList, setMyList] = useState([])
   const [pageNum, setPageNum] = useState(1)
-  const [loggedIn, setLoggedIn] = useState(true)
+  const [loggedIn, setLoggedIn] = useState(false)
   const [showMovie, setShowMovie] = useState(false)
   const [showMyList, setShowMyList] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedMovie, setSelectedMovie] = useState('')
   const [receivedMovies, setReceivedMovies] = useState(false)
 
-  function createUser({ bT, dR, fI, kt, sd, wR }) {
+  // function createUser({ bT, dR, fI, kt, sd, wR }) {
+  function createUser({ QS, SQ, jI, nt, sd, kR }) {
     let user = {}
-    user['firstName'] = bT
-    user['lastName'] = dR
-    user['picUrl'] = fI
-    user['email'] = kt
+    // user['firstName'] = bT
+    user['firstName'] = QS
+    // user['lastName'] = dR
+    user['lastName'] = SQ
+    user['picUrl'] = jI
+    user['email'] = nt
     user['displayName'] = sd
-    user['googleId'] = wR
+    user['googleId'] = kR
     console.log('user: ', user)
     setUser(user)
     setLoggedIn(true)
   }
 
   function handleLogin(response) {
-    sendUser(response.Es)
-    createUser(response.Es)
+    console.log('login response: ', response)
+    sendUser(response.Hs)
+    createUser(response.Hs)
   }
   function handleMyListClick() {
     // console.log('showmylist: ', showMyList)
@@ -147,6 +151,7 @@ function App() {
             />
             <div className="app">
               <MovieMural
+                savedMovies={myList}
                 movieList={movieList}
                 receivedMovies={receivedMovies}
                 onSave={movie => handleSave(movie)}
