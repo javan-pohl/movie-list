@@ -119,7 +119,7 @@ function App() {
           ////////////////////////////////////////
           // console.log('getList client movies: ', movie);
         })
-        // console.log('getList client movies: ', movies)
+        console.log('getList client movies: ', movies)
         setMyList(movies)
       })
       .catch(err => console.log('sendUser error: ', err))

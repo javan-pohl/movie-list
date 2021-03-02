@@ -68,14 +68,14 @@ function getList(database, userId, res) {
 
 function insertUser(user, res) {
   // user = req.body.user;
-  // console.log('insertUser, user: ', user)
+  console.log('insertUser, user: ', user)
   let table = `USERS`;
-  let sql = `INSERT IGNORE INTO ${table}(GOOGLEID, FIRSTNAME, LASTNAME, PICURL, EMAIL, DISPLAYNAME) VALUES('${user.wR}', '${user.bT}', '${user.dR}', '${user.fI}', '${user.kt}', '${user.sd}')`;
+  let sql = `INSERT IGNORE INTO ${table}(GOOGLEID, FIRSTNAME, LASTNAME, PICURL, EMAIL, DISPLAYNAME) VALUES('${user.kR}', '${user.QS}', '${user.SQ}', '${user.jI}', '${user.nt}', '${user.sd}')`;
   let database = new Database(config);
   database.query(sql)
     .then(() => {
       console.log('database insert user success!')
-      getList(database, user.wR, res)
+      getList(database, user.kR, res)
 
       // res.status(200).send('user added!')
       // database.close()
