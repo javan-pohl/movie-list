@@ -20,12 +20,9 @@ function App() {
   const [selectedMovie, setSelectedMovie] = useState('')
   const [receivedMovies, setReceivedMovies] = useState(false)
 
-  // function createUser({ bT, dR, fI, kt, sd, wR }) {
   function createUser({ QS, SQ, jI, nt, sd, kR }) {
     let user = {}
-    // user['firstName'] = bT
     user['firstName'] = QS
-    // user['lastName'] = dR
     user['lastName'] = SQ
     user['picUrl'] = jI
     user['email'] = nt
