@@ -48,11 +48,23 @@ function App() {
     setSearchTerm(event.target.value)
   }
 
-  function handleSave(movie) {
+  function handleSave(index) {
     // let temp = myList;
     // temp.push(movie);
     // setMyList(temp);
-    sendMovie(movie)
+    console.log('handleSave index: ', index)
+    updateLocalSaved(index)
+    sendMovie(movies[index])
+  }
+
+  function updateLocalSaved(i) {
+    // let i = index.index
+    let newList = movies.slice()
+    console.log('index: ', i)
+    console.log('newList: ', newList)
+    console.log('newList: ', newList[i])
+    newList[i].saved = !newList[i].saved
+    setMyList(newList)
   }
 
   async function handleSearchSubmit(e) {
@@ -60,8 +72,24 @@ function App() {
     let unspaced = searchTerm.replaceAll(' ', '%20')
     let sample_query = `https://api.themoviedb.org/3/search/movie?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US&query=${unspaced}&page=1&include_adult=false`
     let movieList = await getMovies(sample_query)
+    handleIfSaved(movieList)
+    // await setMoviesState(movieList)
+  }
+
+  async function handleIfSaved(movieList) {
+    console.log('in handleIfSaved: ', movieList)
+    let newList = movieList.map((movie, index) => {
+      movie.saved = myList.reduce((accum, savedMovie) => {
+        if (movie.id == savedMovie.id) {
+          accum = true
+        }
+        return accum
+      }, false)
+      return movie
+    })
     setShowMyList(false)
-    await setMoviesState(movieList)
+    console.log('new list: ', newList)
+    await setMoviesState(newList)
   }
 
   /////////////////////////////////////
@@ -88,13 +116,13 @@ function App() {
   }
 
   function sendMovie(movieInfo) {
-    console.log('sendMovie, movieInfo.movie: ', movieInfo.movie)
+    console.log('sendMovie, movieInfo.movie: ', movieInfo)
     axios({
       method: 'post',
       url: '/saveMovie',
       data: {
         googleId: user.googleId,
-        movie: movieInfo.movie
+        movie: movieInfo
       }
     })
       .then(data => console.log('sendUser success: ', data))
@@ -114,6 +142,7 @@ function App() {
           // obj
           obj['id'] = movie.MOVIEID
           obj['title'] = movie.TITLE
+          obj['saved'] = true
           obj['poster_path'] = movie.POSTER
           obj['vote_average'] = movie.SCORE
           obj['overview'] = movie.DESC_BODY

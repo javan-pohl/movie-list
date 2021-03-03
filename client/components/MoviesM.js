@@ -8,10 +8,11 @@ import IconButton from '@material-ui/core/IconButton'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-const Movies = ({ movie, onSave, time, saved }) => {
-  console.log('is movie in mylist?: ', saved)
+const Movies = ({ movie, onSave, time }) => {
+  // console.log('is movie in mylist?: ', saved)
+  console.log('movie: ', movie)
   const showStar = () =>
-    saved ? (
+    movie.saved ? (
       <StarIcon fontSize="large" style={{ color: 'yellow' }} />
     ) : (
       <StarBorderIcon fontSize="large" />

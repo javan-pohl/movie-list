@@ -10,16 +10,9 @@ const MovieList = ({ receivedMovies, movieList, savedMovies, onSave }) => {
     if (movie.poster_path) {
       return (
         <Movies
-          saved={savedMovies.reduce( (accumulator, savedMovie) => {
-            if (savedMovie.id == movie.id) {
-              console.log('movie match')
-              accumulator = true
-            }
-            return accumulator
-          }, false)}
           movie={movie}
           key={index}
-          onSave={() => onSave({ movie })}
+          onSave={() => onSave(index)}
           time={index * 100}
         />
       )
