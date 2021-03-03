@@ -9,6 +9,8 @@ import { fade, makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import Link from '@material-ui/core/Link'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -68,6 +70,7 @@ const useStyles = makeStyles(theme => ({
 const NavBar = ({ showList, value, onChange, onSubmit, handleMyListClick }) => {
   const classes = useStyles()
   const linkName = showList ? 'Back to Results' : 'My List'
+  console.log('onchange function: ', onChange)
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -82,17 +85,26 @@ const NavBar = ({ showList, value, onChange, onSubmit, handleMyListClick }) => {
             </Link>
           </Typography>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+          <form autoComplete="off" onSubmit={e => onSubmit(e)} noValidate>
+              <TextField
+                id="outlined-basic"
+                size="small"
+                style={{ background: 'white', color: 'black' }}
+                variant="outlined"
+                value={value}
+                onChange={e => onChange(e)}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                disableElevation
+                size="small"
+                style={{ margin: 2, minWidth: '24px' }}
+                onClick={e => onSubmit(e)}
+              >
+                <SearchIcon />
+              </Button>
+            </form>
           </div>
         </Toolbar>
       </AppBar>

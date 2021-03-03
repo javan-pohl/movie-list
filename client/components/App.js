@@ -42,10 +42,6 @@ function App() {
     setShowMyList(showMyList ? false : true)
   }
 
-  function handleSearchChange(event) {
-    setSearchTerm(event.target.value)
-  }
-
   function handleSave(obj) {
     obj.movie.saved ? localUnsave(obj.index) : localSave(obj.index)
   }
@@ -67,8 +63,15 @@ function App() {
     await setMyList(newMyList)
     handleIfSaved(newList)
   }
+
+  function handleSearchChange(event) {
+    console.log('searchchange event: ', event)
+    console.log('searchchange event.target.value : ', event.target.value)
+    setSearchTerm(event.target.value)
+  }
   async function handleSearchSubmit(e) {
     e.preventDefault()
+    // console.log('e: ', e)
     let unspaced = searchTerm.replaceAll(' ', '%20')
     let sample_query = `https://api.themoviedb.org/3/search/movie?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US&query=${unspaced}&page=1&include_adult=false`
     let movieList = await getMovies(sample_query)
@@ -200,6 +203,7 @@ function App() {
         return (
           <React.Fragment>
             <NavBar
+              showList={showMyList}
               value={searchTerm}
               onChange={handleSearchChange}
               onSubmit={handleSearchSubmit}
