@@ -182,6 +182,7 @@ function App() {
         return (
           <React.Fragment>
             <NavBar
+              receivedMovies={receivedMovies}
               showList={showMyList}
               value={searchTerm}
               onChange={handleSearchChange}
@@ -203,6 +204,7 @@ function App() {
         return (
           <React.Fragment>
             <NavBar
+              receivedMovies={receivedMovies}
               showList={showMyList}
               value={searchTerm}
               onChange={handleSearchChange}

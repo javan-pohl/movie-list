@@ -67,45 +67,64 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const NavBar = ({ showList, value, onChange, onSubmit, handleMyListClick }) => {
+const NavBar = ({
+  showList,
+  value,
+  onChange,
+  onSubmit,
+  handleMyListClick,
+  receivedMovies
+}) => {
   const classes = useStyles()
   const linkName = showList ? 'Back to Results' : 'My List'
   console.log('onchange function: ', onChange)
+  const renderListLink = () => {
+    if (receivedMovies) {
+      return (
+        <Typography className={classes.title} variant="h6" noWrap>
+          <Link
+            href="#"
+            style={{ color: 'white' }}
+            onClick={() => handleMyListClick()}
+          >
+            {linkName}
+          </Link>
+        </Typography>
+      )
+    }
+  }
+  const renderSearch = () => {
+    if (receivedMovies) {
+      return (
+        <form autoComplete="off" onSubmit={e => onSubmit(e)} noValidate>
+          <TextField
+            id="outlined-basic"
+            size="small"
+            style={{ background: 'white', color: 'black' }}
+            variant="outlined"
+            value={value}
+            onChange={e => onChange(e)}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            disableElevation
+            size="small"
+            style={{ margin: 2, minWidth: '24px' }}
+            onClick={e => onSubmit(e)}
+          >
+            <SearchIcon />
+          </Button>
+        </form>
+      )
+    }
+  }
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            <Link
-              href="#"
-              style={{ color: 'white' }}
-              onClick={() => handleMyListClick()}
-            >
-              {linkName}
-            </Link>
-          </Typography>
-          <div className={classes.search}>
-          <form autoComplete="off" onSubmit={e => onSubmit(e)} noValidate>
-              <TextField
-                id="outlined-basic"
-                size="small"
-                style={{ background: 'white', color: 'black' }}
-                variant="outlined"
-                value={value}
-                onChange={e => onChange(e)}
-              />
-              <Button
-                variant="contained"
-                color="primary"
-                disableElevation
-                size="small"
-                style={{ margin: 2, minWidth: '24px' }}
-                onClick={e => onSubmit(e)}
-              >
-                <SearchIcon />
-              </Button>
-            </form>
-          </div>
+          {renderListLink()}
+          <div className={classes.search}>{renderSearch()}</div>
         </Toolbar>
       </AppBar>
     </div>
