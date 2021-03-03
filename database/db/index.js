@@ -135,11 +135,36 @@ function saveToList(googleId, movieId, res) {
       database.close()
     })
 }
+
+function removeFromList(googleId, movieId, res) {
+  // console.log('saveToList, googleid & movieId: ', googleId, movieId);
+  // let googleId = userId;
+  // let movieId = id;
+  // console.log('saveToList googleid: ', googleId)
+  let id = '' + googleId + movieId
+  // console.log('saveToList id: ', id)
+  let table = `SAVEDMOVIES`
+  let sql = `DELETE FROM ${table} WHERE ID=${id}`
+  let database = new Database(config)
+  database
+    .query(sql)
+    .then(() => {
+      console.log('added to list!')
+      res.status(200).send('successfully added to list!')
+      database.close()
+    })
+    .catch(err => {
+      console.log('add to list error: ', err)
+      res.status(404).send(err)
+      database.close()
+    })
+}
 // insertUser(testUser);
 // let database = new Database(config)
 
 module.exports = {
   insertUser: insertUser,
   saveMovieInfo: saveMovieInfo,
-  saveToList: saveToList
+  saveToList: saveToList,
+  removeFromList: removeFromList
 }

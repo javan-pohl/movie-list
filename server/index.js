@@ -49,6 +49,10 @@ app.post('/saveMovie', cors(), (req, res) => {
   db.saveToList(req.body.googleId, req.body.movie.id, res)
 });
 
+app.post('/deleteMovie', cors(), (req, res) => {
+  db.removeFromList(req.body.googleId, req.body.movie.id, res)
+});
+
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

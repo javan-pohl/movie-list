@@ -65,9 +65,9 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const NavBar = ({ value, onChange, onSubmit, handleMyListClick }) => {
+const NavBar = ({ showList, value, onChange, onSubmit, handleMyListClick }) => {
   const classes = useStyles()
-
+  const linkName = showList ? 'Back to Results' : 'My List'
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -78,7 +78,7 @@ const NavBar = ({ value, onChange, onSubmit, handleMyListClick }) => {
               style={{ color: 'white' }}
               onClick={() => handleMyListClick()}
             >
-              My List
+              {linkName}
             </Link>
           </Typography>
           <div className={classes.search}>

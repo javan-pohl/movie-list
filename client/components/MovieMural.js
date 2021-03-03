@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 
 const MovieList = ({ receivedMovies, movieList, savedMovies, onSave }) => {
-  console.log('movieList: ', savedMovies)
+  // console.log('movieList: ', savedMovies)
 
   let movies = movieList.map((movie, index) => {
     if (movie.poster_path) {
@@ -12,7 +12,7 @@ const MovieList = ({ receivedMovies, movieList, savedMovies, onSave }) => {
         <Movies
           movie={movie}
           key={index}
-          onSave={() => onSave(index)}
+          onSave={() => onSave({movie, index})}
           time={index * 100}
         />
       )

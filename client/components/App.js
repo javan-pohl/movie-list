@@ -34,39 +34,39 @@ function App() {
   }
 
   function handleLogin(response) {
-    console.log('login response: ', response)
     sendUser(response.Hs)
     createUser(response.Hs)
   }
   function handleMyListClick() {
-    // console.log('showmylist: ', showMyList)
+    console.log('showmylist: ', showMyList)
     setShowMyList(showMyList ? false : true)
   }
 
   function handleSearchChange(event) {
-    console.log(event.target.value)
     setSearchTerm(event.target.value)
   }
 
-  function handleSave(index) {
-    // let temp = myList;
-    // temp.push(movie);
-    // setMyList(temp);
-    console.log('handleSave index: ', index)
-    updateLocalSaved(index)
-    sendMovie(movies[index])
+  function handleSave(obj) {
+    obj.movie.saved ? localUnsave(obj.index) : localSave(obj.index)
   }
 
-  function updateLocalSaved(i) {
-    // let i = index.index
+  function localSave(i) {
     let newList = movies.slice()
-    console.log('index: ', i)
-    console.log('newList: ', newList)
-    console.log('newList: ', newList[i])
-    newList[i].saved = !newList[i].saved
-    setMyList(newList)
+    let newMyList = myList.slice()
+    newList[i].saved = true
+    newMyList.push(newList[i])
+    sendMovie(movies[i])
+    setMyList(newMyList)
   }
-
+  async function localUnsave(i) {
+    let newList = movies.slice()
+    let id = newList[i].id
+    let newMyList = myList.filter(movie => movie.id != id)
+    newList[i].saved = false
+    removeMovie(movies[i])
+    await setMyList(newMyList)
+    handleIfSaved(newList)
+  }
   async function handleSearchSubmit(e) {
     e.preventDefault()
     let unspaced = searchTerm.replaceAll(' ', '%20')
@@ -77,7 +77,6 @@ function App() {
   }
 
   async function handleIfSaved(movieList) {
-    console.log('in handleIfSaved: ', movieList)
     let newList = movieList.map((movie, index) => {
       movie.saved = myList.reduce((accum, savedMovie) => {
         if (movie.id == savedMovie.id) {
@@ -87,8 +86,9 @@ function App() {
       }, false)
       return movie
     })
-    setShowMyList(false)
-    console.log('new list: ', newList)
+    console.log('handleifSaved newList: ', newList)
+    console.log('handleifSaved: myList: ', myList)
+    // setShowMyList(false)
     await setMoviesState(newList)
   }
 
@@ -100,7 +100,6 @@ function App() {
         console.log('raw data from db: ', data)
         let movies = []
         data.data.forEach(val => movies.push(val))
-        console.log('getList client movies: ', movies)
       })
       .catch(err => console.log('getList error: ', err))
   }
@@ -109,14 +108,12 @@ function App() {
     return await axios
       .get(searchTerm)
       .then(data => {
-        console.log('get movies: ', data.data.results)
         return data.data.results
       })
       .catch(err => console.log('get error: ', err))
   }
 
   function sendMovie(movieInfo) {
-    console.log('sendMovie, movieInfo.movie: ', movieInfo)
     axios({
       method: 'post',
       url: '/saveMovie',
@@ -129,6 +126,19 @@ function App() {
       .catch(err => console.log('sendUser error: ', err))
   }
 
+  function removeMovie(movieInfo) {
+    axios({
+      method: 'post',
+      url: '/deleteMovie',
+      data: {
+        googleId: user.googleId,
+        movie: movieInfo
+      }
+    })
+      .then(data => console.log('deleteUser success: ', data))
+      .catch(err => console.log('deleteUser error: ', err))
+  }
+
   function sendUser(user) {
     axios({
       method: 'post',
@@ -139,7 +149,6 @@ function App() {
         let movies = []
         data.data.forEach(movie => {
           let obj = {}
-          // obj
           obj['id'] = movie.MOVIEID
           obj['title'] = movie.TITLE
           obj['saved'] = true
@@ -147,17 +156,13 @@ function App() {
           obj['vote_average'] = movie.SCORE
           obj['overview'] = movie.DESC_BODY
           movies.push(obj)
-          ////////////////////////////////////////
-          // console.log('getList client movies: ', movie);
         })
-        console.log('getList client movies: ', movies)
         setMyList(movies)
       })
       .catch(err => console.log('sendUser error: ', err))
   }
 
   async function setMoviesState(movies) {
-    // console.log(movies);
     await setMovies(movies)
     await setReceivedMovies(true)
     return
@@ -166,12 +171,15 @@ function App() {
   const renderPage = () => {
     let movieList
     movieList = showMyList ? myList : movies
-    // console.log('movieList: ', movieList);
+    console.log('renderpage, showmylist', showMyList)
+    console.log('myList; ', myList)
+    console.log('movieList: ', movieList)
     if (loggedIn) {
       if (receivedMovies) {
         return (
           <React.Fragment>
             <NavBar
+              showList={showMyList}
               value={searchTerm}
               onChange={handleSearchChange}
               onSubmit={handleSearchSubmit}
@@ -179,6 +187,7 @@ function App() {
             />
             <div className="app">
               <MovieMural
+                key={showMyList}
                 savedMovies={myList}
                 movieList={movieList}
                 receivedMovies={receivedMovies}
