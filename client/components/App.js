@@ -84,6 +84,7 @@ function App() {
     let sample_query = `https://api.themoviedb.org/3/search/movie?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US&query=${unspaced}&page=1&include_adult=false`
     let movieList = await getMovies(sample_query)
     handleIfSaved(movieList)
+    setShowMyList(false)
     // await setMoviesState(movieList)
   }
 
@@ -180,8 +181,15 @@ function App() {
   }
 
   const renderPage = () => {
-    let movieList
+    let movieList, url
     movieList = showMyList ? myList : movies
+    if (showMyList) {
+      movieList = myList
+      url = `/mylist`
+    } else {
+      movieList = movies
+      url = `/results/${searchTerm}`
+    }
     console.log('renderpage, showmylist', showMyList)
     console.log('myList; ', myList)
     console.log('movieList: ', movieList)
@@ -189,6 +197,7 @@ function App() {
       if (receivedMovies) {
         return (
           <React.Fragment>
+            <Redirect to={url} />
             <NavBar
               receivedMovies={receivedMovies}
               showList={showMyList}
