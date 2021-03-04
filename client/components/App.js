@@ -66,13 +66,18 @@ function App() {
   }
   async function localUnsave(i) {
     // let newList = movies.slice()
+    let movie = movies.find( movie => movie.id == i.id)
     console.log('myList: ', myList)
-    let newList = movies.map( movie => movie.id != i.id )
+    console.log('myList: ', myList)
+    console.log('movies: ', movies)
+    console.log('movie: ', movie)
+    let newList = movies.filter( movie => movie.id != i.id )
     let newMyList = myList.filter(movie => movie.id != i.id)
     // let id = i.id
     console.log('myList updated: ', myList)
+    console.log('newList updated: ', newList)
     // newList[i].saved = false
-    removeMovie(movies[i])
+    removeMovie(movie)
     await setMyList(newMyList)
     handleIfSaved(newList)
   }
