@@ -7,6 +7,14 @@ import NavBar from './NavBar.js'
 import MovieList from './MovieList.js'
 import MovieMural from './MovieMural.js'
 import SelectedMovie from './SelectedMovie.js'
+import {
+  HashRouter,
+  Redirect,
+  Router,
+  Route,
+  Switch,
+  Link
+} from 'react-router-dom'
 
 function App() {
   const [user, setUser] = useState({})
@@ -203,6 +211,7 @@ function App() {
       } else {
         return (
           <React.Fragment>
+            <Redirect to="/search" />
             <NavBar
               receivedMovies={receivedMovies}
               showList={showMyList}
@@ -224,6 +233,7 @@ function App() {
     } else {
       return (
         <React.Fragment>
+          <Redirect to="/login" />
           <Login handleLogin={handleLogin} />
         </React.Fragment>
       )

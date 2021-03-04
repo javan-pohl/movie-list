@@ -18,14 +18,17 @@ app.use(morgan('dev'));
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 
-// app.get('/', function(req, res){
-//   console.log('in that redirect get function')
-//   res.redirect('/#/search');
-// });
+// app.use(function(req, res) {
+//   res.redirect('/')
+// })
 
 // serve the client files (webpage)
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+app.get('*', function(req, res){
+  console.log('in that redirect get function')
+  res.redirect('/');
+});
 // app.post('/', )
 // database
 // const db = require('../database/getProps.js');
