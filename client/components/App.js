@@ -46,12 +46,14 @@ function App() {
     createUser(response.Hs)
   }
   function handleMyListClick() {
-    console.log('showmylist: ', showMyList)
+    // console.log('showmylist: ', showMyList)
     setShowMyList(showMyList ? false : true)
   }
 
   function handleSave(obj) {
-    obj.movie.saved ? localUnsave(obj.index) : localSave(obj.index)
+    console.log('handleSave: ', obj)
+    // obj.movie.saved ? localUnsave(obj.index) : localSave(obj.index)
+    obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
   }
 
   function localSave(i) {
@@ -63,18 +65,21 @@ function App() {
     setMyList(newMyList)
   }
   async function localUnsave(i) {
-    let newList = movies.slice()
-    let id = newList[i].id
-    let newMyList = myList.filter(movie => movie.id != id)
-    newList[i].saved = false
+    // let newList = movies.slice()
+    console.log('myList: ', myList)
+    let newList = movies.map( movie => movie.id != i.id )
+    let newMyList = myList.filter(movie => movie.id != i.id)
+    // let id = i.id
+    console.log('myList updated: ', myList)
+    // newList[i].saved = false
     removeMovie(movies[i])
     await setMyList(newMyList)
     handleIfSaved(newList)
   }
 
   function handleSearchChange(event) {
-    console.log('searchchange event: ', event)
-    console.log('searchchange event.target.value : ', event.target.value)
+    // console.log('searchchange event: ', event)
+    // console.log('searchchange event.target.value : ', event.target.value)
     setSearchTerm(event.target.value)
   }
   async function handleSearchSubmit(e) {
@@ -98,8 +103,8 @@ function App() {
       }, false)
       return movie
     })
-    console.log('handleifSaved newList: ', newList)
-    console.log('handleifSaved: myList: ', myList)
+    // console.log('handleifSaved newList: ', newList)
+    // console.log('handleifSaved: myList: ', myList)
     // setShowMyList(false)
     await setMoviesState(newList)
   }
@@ -190,9 +195,9 @@ function App() {
       movieList = movies
       url = `/results/${searchTerm}`
     }
-    console.log('renderpage, showmylist', showMyList)
-    console.log('myList; ', myList)
-    console.log('movieList: ', movieList)
+    // console.log('renderpage, showmylist', showMyList)
+    // console.log('myList; ', myList)
+    // console.log('movieList: ', movieList)
     if (loggedIn) {
       if (receivedMovies) {
         return (
