@@ -71,6 +71,7 @@ function App() {
   }
   async function handleGetMovie(id) {
     console.log('handleGetMovie id: ', id)
+    alert('this feature is not yet functional')
     let query = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
     let movieInfo = await getMovie(query)
     console.log('movieInfo: ', movieInfo)
