@@ -66,6 +66,7 @@ function App() {
   }
 
   function handleLogin(response) {
+    console.log('handleLogin response: ', response)
     sendUser(response.Hs)
     createUser(response.Hs)
   }
