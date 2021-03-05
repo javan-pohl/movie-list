@@ -1,8 +1,12 @@
-DROP DATABASE IF EXISTS movielist;
+-- DROP DATABASE IF EXISTS movielist;
 
-CREATE DATABASE movielist;
+-- CREATE DATABASE movielist;
 
-USE movielist;
+-- USE movielist;
+
+-- ABOVE for local BELOW for Heroku
+
+USE heroku_3164bae8ef63aa7;
 
 DROP TABLE IF EXISTS USERS;
 

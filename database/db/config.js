@@ -1,11 +1,15 @@
+const mysql = require('mysql')
+const dbConfig = require('../../keys/mysql.js')
 
-module.exports.config = {
-  host : 'us-cdbr-east-03.cleardb.com',
-  user: 'b79f1e9bce6f40',
-  password: '8b99afd9',
-  database: 'heroku_3164bae8ef63aa7',
-  insecureAuth : true
-};
+var dbConnection = (mysql.createPool = {
+  host: dbConfig.host,
+  user: dbConfig.user,
+  password: dbConfig.password,
+  database: dbConfig.db,
+  insecureAuth: true
+})
+
+module.exports = dbConnection
 
 // // above for Heroku, below for local
 

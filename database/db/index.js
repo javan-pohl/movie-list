@@ -1,16 +1,19 @@
 var mysql = require('mysql')
+// var dbConnection = require('./config.js')
+var config = require('../../keys/mysql.js')
 
-let config = {
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'movielist',
-  insecureAuth: true
-}
+// let config = {
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'password',
+//   database: 'movielist',
+//   insecureAuth: true
+// }
 
 class Database {
   constructor(config) {
-    this.connection = mysql.createConnection(config)
+    // this.connection = mysql.createConnection(config)
+    this.connection = mysql.createPool(config)
   }
   query(sql, args) {
     return new Promise((resolve, reject) => {
