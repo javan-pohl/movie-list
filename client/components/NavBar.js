@@ -77,7 +77,7 @@ const NavBar = ({
 }) => {
   const classes = useStyles()
   const linkName = showList ? 'Back to Results' : 'My List'
-  console.log('onchange function: ', onChange)
+  // console.log('onchange function: ', onChange)
   const renderListLink = () => {
     if (receivedMovies) {
       return (

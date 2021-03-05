@@ -55,7 +55,7 @@ function getList(database, userId, res) {
   database
     .query(sql)
     .then(data => {
-      console.log('getList success!', data)
+      console.log('getList success!')
       res.status(200).send(data)
       database.close()
     })

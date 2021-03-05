@@ -1,10 +1,10 @@
 import React from 'react'
 import {
   HashRouter,
+  Redirect,
   Router,
   Route,
   Switch,
-  Redirect,
   Link
 } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
