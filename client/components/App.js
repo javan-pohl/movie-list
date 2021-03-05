@@ -23,8 +23,10 @@ function App() {
   const [pageNum, setPageNum] = useState(1)
   const [loggedIn, setLoggedIn] = useState(false)
   const [showMovie, setShowMovie] = useState(false)
+  const [movieInfo, setmovieInfo] = useState([])
   const [showMyList, setShowMyList] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const [showOneMovie, setshowOneMovie] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState('')
   const [receivedMovies, setReceivedMovies] = useState(false)
 
@@ -40,22 +42,6 @@ function App() {
     setUser(user)
     setLoggedIn(true)
   }
-
-  function handleLogin(response) {
-    sendUser(response.Hs)
-    createUser(response.Hs)
-  }
-  function handleMyListClick() {
-    // console.log('showmylist: ', showMyList)
-    setShowMyList(showMyList ? false : true)
-  }
-
-  function handleSave(obj) {
-    console.log('handleSave: ', obj)
-    // obj.movie.saved ? localUnsave(obj.index) : localSave(obj.index)
-    obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
-  }
-
   function localSave(i) {
     let newList = movies.slice()
     let newMyList = myList.slice()
@@ -65,39 +51,30 @@ function App() {
     setMyList(newMyList)
   }
   async function localUnsave(i) {
-    // let newList = movies.slice()
-    let movie = movies.find( movie => movie.id == i.id)
+    let movie = movies.find(movie => movie.id == i.id)
     console.log('myList: ', myList)
     console.log('myList: ', myList)
     console.log('movies: ', movies)
     console.log('movie: ', movie)
-    let newList = movies.filter( movie => movie.id != i.id )
+    let newList = movies.filter(movie => movie.id != i.id)
     let newMyList = myList.filter(movie => movie.id != i.id)
-    // let id = i.id
     console.log('myList updated: ', myList)
     console.log('newList updated: ', newList)
-    // newList[i].saved = false
     removeMovie(movie)
     await setMyList(newMyList)
     handleIfSaved(newList)
   }
 
-  function handleSearchChange(event) {
-    // console.log('searchchange event: ', event)
-    // console.log('searchchange event.target.value : ', event.target.value)
-    setSearchTerm(event.target.value)
+  function handleLogin(response) {
+    sendUser(response.Hs)
+    createUser(response.Hs)
   }
-  async function handleSearchSubmit(e) {
-    e.preventDefault()
-    // console.log('e: ', e)
-    let unspaced = searchTerm.replaceAll(' ', '%20')
-    let sample_query = `https://api.themoviedb.org/3/search/movie?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US&query=${unspaced}&page=1&include_adult=false`
-    let movieList = await getMovies(sample_query)
-    handleIfSaved(movieList)
-    setShowMyList(false)
-    // await setMoviesState(movieList)
+  async function handleGetMovie(id) {
+    console.log('handleGetMovie id: ', id)
+    let query = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
+    let movieInfo = await getMovie(query)
+    console.log('movieInfo: ', movieInfo)
   }
-
   async function handleIfSaved(movieList) {
     let newList = movieList.map((movie, index) => {
       movie.saved = myList.reduce((accum, savedMovie) => {
@@ -108,13 +85,27 @@ function App() {
       }, false)
       return movie
     })
-    // console.log('handleifSaved newList: ', newList)
-    // console.log('handleifSaved: myList: ', myList)
-    // setShowMyList(false)
     await setMoviesState(newList)
   }
+  function handleMyListClick() {
+    setShowMyList(showMyList ? false : true)
+  }
+  function handleSave(obj) {
+    console.log('handleSave: ', obj)
+    obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
+  }
 
-  /////////////////////////////////////
+  function handleSearchChange(event) {
+    setSearchTerm(event.target.value)
+  }
+  async function handleSearchSubmit(e) {
+    e.preventDefault()
+    let unspaced = searchTerm.replaceAll(' ', '%20')
+    let sample_query = `https://api.themoviedb.org/3/search/movie?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US&query=${unspaced}&page=1&include_adult=false`
+    let movieList = await getMovies(sample_query)
+    handleIfSaved(movieList)
+    setShowMyList(false)
+  }
   function getList() {
     axios
       .get(`/list/${user.googleId}`)
@@ -125,16 +116,26 @@ function App() {
       })
       .catch(err => console.log('getList error: ', err))
   }
-
-  async function getMovies(searchTerm) {
+  async function getMovie(searchTerm) {
+    console.log('in getMovies, search term: ', searchTerm)
     return await axios
       .get(searchTerm)
       .then(data => {
+        console.log('getMovies data: ', data)
+        return data.data
+      })
+      .catch(err => console.log('get error: ', err))
+  }
+  async function getMovies(searchTerm) {
+    console.log('in getMovies, search term: ', searchTerm)
+    return await axios
+      .get(searchTerm)
+      .then(data => {
+        console.log('getMovies data: ', data)
         return data.data.results
       })
       .catch(err => console.log('get error: ', err))
   }
-
   function sendMovie(movieInfo) {
     axios({
       method: 'post',
@@ -183,13 +184,11 @@ function App() {
       })
       .catch(err => console.log('sendUser error: ', err))
   }
-
   async function setMoviesState(movies) {
     await setMovies(movies)
     await setReceivedMovies(true)
     return
   }
-
   const renderPage = () => {
     let movieList, url
     movieList = showMyList ? myList : movies
@@ -200,9 +199,6 @@ function App() {
       movieList = movies
       url = `/results/${searchTerm}`
     }
-    // console.log('renderpage, showmylist', showMyList)
-    // console.log('myList; ', myList)
-    // console.log('movieList: ', movieList)
     if (loggedIn) {
       if (receivedMovies) {
         return (
@@ -223,6 +219,7 @@ function App() {
                 movieList={movieList}
                 receivedMovies={receivedMovies}
                 onSave={movie => handleSave(movie)}
+                onSummaryClick={id => handleGetMovie(id)}
               />
             </div>
           </React.Fragment>
