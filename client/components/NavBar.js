@@ -79,7 +79,7 @@ const NavBar = ({
   const linkName = showList ? 'Back to Results' : 'My List'
   // console.log('onchange function: ', onChange)
   const renderListLink = () => {
-    if (receivedMovies) {
+    // if (receivedMovies) {
       return (
         <Typography className={classes.title} variant="h6" noWrap>
           <Link
@@ -91,7 +91,7 @@ const NavBar = ({
           </Link>
         </Typography>
       )
-    }
+    // }
   }
   const renderSearch = () => {
     if (receivedMovies) {

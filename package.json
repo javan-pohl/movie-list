@@ -41,6 +41,7 @@
     "mongoose": "^4.13.21",
     "morgan": "1.9.1",
     "mysql": "^2.18.1",
+    "newrelic": "^7.1.2",
     "prettier-eslint-cli": "^5.0.0",
     "prop-types": "^15.7.2",
     "pstree.remy": "^1.1.8",

@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('../database/db/index.js');
 const path = require('path');
 const cors = require('cors');
-
+require('newrelic');
 const app = express();
 // const PORT = 3002;
 const PORT = process.env.PORT || 3002
