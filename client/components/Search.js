@@ -34,6 +34,13 @@ const useStyles = makeStyles(theme => ({
 
 const Search = ({ value, onChange, onSubmit }) => {
   const classes = useStyles()
+  // const CustomLink = React.useMemo(
+  //   () =>
+  //     React.forwardRef((linkProps, ref) => (
+  //       <Link to={'/results'} {...linkProps} />
+  //     )),
+  //   [to]
+  // )
   return (
     <Grid
       container
@@ -68,6 +75,8 @@ const Search = ({ value, onChange, onSubmit }) => {
                 size="small"
                 style={{ margin: 2, minWidth: '24px' }}
                 onClick={e => onSubmit(e)}
+                component={Link}
+                to="/results"
               >
                 <SearchIcon />
               </Button>

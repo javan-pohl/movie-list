@@ -139,25 +139,25 @@ function saveToList(googleId, movieId, res) {
     })
 }
 
-function removeFromList(googleId, movieId, res) {
-  // console.log('saveToList, googleid & movieId: ', googleId, movieId);
-  // let googleId = userId;
-  // let movieId = id;
-  // console.log('saveToList googleid: ', googleId)
+function removeFromList(reqBody, res) {
+  console.log('removeFromList body: ', reqBody)
+  let googleId = reqBody.googleId;
+  let movieId = reqBody.movie;
+  console.log('saveToList googleid: ', googleId)
   let id = '' + googleId + movieId
-  // console.log('saveToList id: ', id)
+  console.log('saveToList id: ', id)
   let table = `SAVEDMOVIES`
   let sql = `DELETE FROM ${table} WHERE ID=${id}`
   let database = new Database(config)
   database
     .query(sql)
     .then(() => {
-      console.log('added to list!')
-      res.status(200).send('successfully added to list!')
+      console.log('removed from list!')
+      res.status(200).send('successfully removed from list!')
       database.close()
     })
     .catch(err => {
-      console.log('add to list error: ', err)
+      console.log('remove from list error: ', err)
       res.status(404).send(err)
       database.close()
     })

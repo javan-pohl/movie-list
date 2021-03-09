@@ -128,8 +128,6 @@ html {
 .my-list-button:active {
   background-color: rgb(80, 183, 224);
 }
-.poster {
-}
 .posters {
   display: flex;
   flex-wrap: wrap;

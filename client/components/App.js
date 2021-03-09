@@ -9,6 +9,7 @@ import MovieMural from './MovieMural.js'
 import SelectedMovie from './SelectedMovie.js'
 import {
   HashRouter,
+  useHistory,
   Redirect,
   Router,
   Route,
@@ -29,15 +30,16 @@ function App() {
   const [showOneMovie, setshowOneMovie] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState('')
   const [receivedMovies, setReceivedMovies] = useState(false)
+  let history = useHistory()
 
   function createUser({ QS, SQ, jI, nt, sd, kR }) {
     let user = {}
     user['firstName'] = QS
     user['lastName'] = SQ
-    user['picUrl'] = jI
-    user['email'] = nt
     user['displayName'] = sd
     user['googleId'] = kR
+    user['picUrl'] = jI
+    user['email'] = nt
     console.log('user: ', user)
     setUser(user)
     setLoggedIn(true)
@@ -51,6 +53,7 @@ function App() {
     setMyList(newMyList)
   }
   async function localUnsave(i) {
+    console.log ('localUnsave, i: ', i)
     let movie = movies.find(movie => movie.id == i.id)
     console.log('myList: ', myList)
     console.log('myList: ', myList)
@@ -60,13 +63,14 @@ function App() {
     let newMyList = myList.filter(movie => movie.id != i.id)
     console.log('myList updated: ', myList)
     console.log('newList updated: ', newList)
-    removeMovie(movie)
+    removeMovie(i.id)
     await setMyList(newMyList)
     handleIfSaved(newList)
   }
 
   function handleLogin(response) {
     console.log('handleLogin response: ', response)
+    // history.push("/login")
     sendUser(response.Hs)
     createUser(response.Hs)
   }
@@ -103,6 +107,7 @@ function App() {
   async function handleSearchSubmit(e) {
     e.preventDefault()
     let unspaced = searchTerm.replaceAll(' ', '%20')
+    history.push(`/results/${unspaced}`)
     let sample_query = `https://api.themoviedb.org/3/search/movie?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US&query=${unspaced}&page=1&include_adult=false`
     let movieList = await getMovies(sample_query)
     handleIfSaved(movieList)
@@ -138,6 +143,19 @@ function App() {
       })
       .catch(err => console.log('get error: ', err))
   }
+  function removeMovie(movieInfo) {
+    console.log('app.js remove movie', movieInfo)
+    axios({
+      method: 'delete',
+      url: '/deleteMovie',
+      data: {
+        googleId: user.googleId,
+        movie: movieInfo
+      }
+    })
+      .then(data => console.log('deleteUser success: ', data))
+      .catch(err => console.log('deleteUser error: ', err))
+  }
   function sendMovie(movieInfo) {
     axios({
       method: 'post',
@@ -149,19 +167,6 @@ function App() {
     })
       .then(data => console.log('sendUser success: ', data))
       .catch(err => console.log('sendUser error: ', err))
-  }
-
-  function removeMovie(movieInfo) {
-    axios({
-      method: 'post',
-      url: '/deleteMovie',
-      data: {
-        googleId: user.googleId,
-        movie: movieInfo
-      }
-    })
-      .then(data => console.log('deleteUser success: ', data))
-      .catch(err => console.log('deleteUser error: ', err))
   }
 
   function sendUser(user) {
@@ -192,48 +197,60 @@ function App() {
     return
   }
   const renderPage = () => {
-    let movieList, url
-    movieList = showMyList ? myList : movies
-    if (showMyList) {
-      movieList = myList
-      url = `/mylist`
-    } else {
-      movieList = movies
-      url = `/results/${searchTerm}`
-    }
     if (loggedIn) {
-      if (receivedMovies) {
-        return (
-          <React.Fragment>
-            <Redirect to={url} />
-            <NavBar
-              receivedMovies={receivedMovies}
-              showList={showMyList}
+      return (
+        <Switch>
+          <Route path="/results">
+          <NavBar
+              myList={myList}
               value={searchTerm}
+              showList={showMyList}
+              receivedMovies={receivedMovies}
               onChange={handleSearchChange}
               onSubmit={handleSearchSubmit}
               handleMyListClick={handleMyListClick}
             />
             <div className="app">
               <MovieMural
-                key={showMyList}
+                key={true}
                 savedMovies={myList}
-                movieList={movieList}
-                receivedMovies={receivedMovies}
+                movieList={movies}
+                receivedMovies={true}
                 onSave={movie => handleSave(movie)}
                 onSummaryClick={id => handleGetMovie(id)}
               />
             </div>
-          </React.Fragment>
-        )
-      } else {
-        return (
-          <React.Fragment>
-            <Redirect to="/search" />
+          </Route>
+          <Route path="/myList">
             <NavBar
-              receivedMovies={receivedMovies}
-              showList={showMyList}
+              myList={myList}
               value={searchTerm}
+              showList={showMyList}
+              receivedMovies={receivedMovies}
+              onChange={handleSearchChange}
+              onSubmit={handleSearchSubmit}
+              handleMyListClick={handleMyListClick}
+            />
+            <div className="app">
+              <MovieMural
+                key={true}
+                savedMovies={myList}
+                movieList={myList}
+                receivedMovies={true}
+                onSave={movie => handleSave(movie)}
+                onSummaryClick={id => handleGetMovie(id)}
+              />
+            </div>
+          </Route>
+          <Route path="/login">
+            <Redirect to="/search" />
+          </Route>
+          <Route path="/search">
+            <NavBar
+              myList={myList}
+              value={searchTerm}
+              showList={showMyList}
+              receivedMovies={receivedMovies}
               onChange={handleSearchChange}
               onSubmit={handleSearchSubmit}
               handleMyListClick={handleMyListClick}
@@ -245,17 +262,86 @@ function App() {
                 onSubmit={handleSearchSubmit}
               />
             </div>
-          </React.Fragment>
-        )
-      }
+          </Route>
+        </Switch>
+      )
     } else {
       return (
-        <React.Fragment>
-          <Redirect to="/login" />
-          <Login handleLogin={handleLogin} />
-        </React.Fragment>
+        <Switch>
+          <Route path="/">
+            <Redirect to="/login" />
+            <Login handleLogin={handleLogin} />
+          </Route>
+        </Switch>
       )
     }
+
+    // let movieList, url
+    // movieList = showMyList ? myList : movies
+    // if (showMyList) {
+    //   movieList = myList
+    //   url = `/mylist`
+    // } else {
+    //   movieList = movies
+    //   url = `/results/${searchTerm}`
+    // }
+    // if (loggedIn) {
+    //   if (receivedMovies) {
+    //     return (
+    //       <React.Fragment>
+    //         <Redirect to={url} />
+    //         <NavBar
+    //           myList={myList}
+    //           value={searchTerm}
+    //           showList={showMyList}
+    //           receivedMovies={receivedMovies}
+    //           onChange={handleSearchChange}
+    //           onSubmit={handleSearchSubmit}
+    //           handleMyListClick={handleMyListClick}
+    //         />
+    // <div className="app">
+    //   <MovieMural
+    //     key={showMyList}
+    //     savedMovies={myList}
+    //     movieList={movieList}
+    //     receivedMovies={receivedMovies}
+    //     onSave={movie => handleSave(movie)}
+    //     onSummaryClick={id => handleGetMovie(id)}
+    //   />
+    // </div>
+    //       </React.Fragment>
+    //     )
+    //   } else {
+    //     return (
+    //       <React.Fragment>
+    //         <Redirect to="/search" />
+    // ;<NavBar
+    //   myList={myList}
+    //   value={searchTerm}
+    //   showList={showMyList}
+    //   receivedMovies={receivedMovies}
+    //   onChange={handleSearchChange}
+    //   onSubmit={handleSearchSubmit}
+    //   handleMyListClick={handleMyListClick}
+    // />
+    // <div className="app">
+    //   <Search
+    //     value={searchTerm}
+    //     onChange={handleSearchChange}
+    //     onSubmit={handleSearchSubmit}
+    //   />
+    // </div>
+    //       </React.Fragment>
+    //     )
+    //   }
+    // } else {
+    //   return (
+    //     <React.Fragment>
+    //       <Redirect to="/login" />
+    //       <Login handleLogin={handleLogin} />
+    //     </React.Fragment>
+    //   )
+    // }
   }
 
   return <React.Fragment>{renderPage()}</React.Fragment>
