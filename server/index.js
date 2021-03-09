@@ -55,13 +55,13 @@ app.post('/createUser', cors(), (req, res) => {
 
 app.post('/saveMovie', cors(), (req, res) => {
   // db.getById(req, res);
-  // console.log(req.body);
   db.saveMovieInfo(req.body.movie)
   db.saveToList(req.body.googleId, req.body.movie.id, res)
 });
 
-app.post('/deleteMovie', cors(), (req, res) => {
-  db.removeFromList(req.body.googleId, req.body.movie.id, res)
+app.delete('/deleteMovie', cors(), (req, res) => {
+  console.log(req.body);
+  db.removeFromList(req.body, res)
 });
 
 

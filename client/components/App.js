@@ -53,6 +53,7 @@ function App() {
     setMyList(newMyList)
   }
   async function localUnsave(i) {
+    console.log ('localUnsave, i: ', i)
     let movie = movies.find(movie => movie.id == i.id)
     console.log('myList: ', myList)
     console.log('myList: ', myList)
@@ -62,7 +63,7 @@ function App() {
     let newMyList = myList.filter(movie => movie.id != i.id)
     console.log('myList updated: ', myList)
     console.log('newList updated: ', newList)
-    removeMovie(movie)
+    removeMovie(i.id)
     await setMyList(newMyList)
     handleIfSaved(newList)
   }
@@ -143,8 +144,9 @@ function App() {
       .catch(err => console.log('get error: ', err))
   }
   function removeMovie(movieInfo) {
+    console.log('app.js remove movie', movieInfo)
     axios({
-      method: 'post',
+      method: 'delete',
       url: '/deleteMovie',
       data: {
         googleId: user.googleId,
