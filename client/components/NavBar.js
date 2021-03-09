@@ -8,9 +8,10 @@ import InputBase from '@material-ui/core/InputBase'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
-import Link from '@material-ui/core/Link'
+import LinkMUI from '@material-ui/core/Link'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -68,29 +69,39 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const NavBar = ({
-  showList,
-  value,
+  handleMyListClick,
+  myList,
   onChange,
   onSubmit,
-  handleMyListClick,
-  receivedMovies
+  receivedMovies,
+  showList,
+  value
 }) => {
   const classes = useStyles()
-  const linkName = showList ? 'Back to Results' : 'My List'
+  let linkName = ''
+  let toLink = "/myList"
+  if (showList) {
+    toLink = receivedMovies ? "/results" : "/search"
+  }
+  if (myList.length > 0) {
+    linkName = showList ? 'Back to Search' : 'My List'
+  }
+  // const linkName = showList ? 'Back to Results' : 'My List'
   // console.log('onchange function: ', onChange)
   const renderListLink = () => {
     // if (receivedMovies) {
-      return (
-        <Typography className={classes.title} variant="h6" noWrap>
-          <Link
-            href="#"
+    return (
+      <Typography className={classes.title} variant="h6" noWrap>
+          <LinkMUI
             style={{ color: 'white' }}
             onClick={() => handleMyListClick()}
+            component={Link}
+            to={toLink}
           >
             {linkName}
-          </Link>
-        </Typography>
-      )
+          </LinkMUI>
+      </Typography>
+    )
     // }
   }
   const renderSearch = () => {

@@ -26,10 +26,17 @@ app.use(parser.urlencoded({ extended: true }));
 // serve the client files (webpage)
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.get('*', function(req, res){
+// // Redirect
+app.get('/*', function(req, res){
   console.log('in that redirect get function')
   res.redirect('/');
+  // res.sendFile(path.join(__dirname, '..', 'public'), function(err) {
+  //   if (err) {
+  //     res.status(500).send(err)
+  //   }
+  // })
 });
+
 // app.post('/', )
 // database
 // const db = require('../database/getProps.js');
