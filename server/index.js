@@ -60,7 +60,7 @@ app.post('/saveMovie', cors(), (req, res) => {
 });
 
 app.delete('/deleteMovie', cors(), (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   db.removeFromList(req.body, res)
 });
 

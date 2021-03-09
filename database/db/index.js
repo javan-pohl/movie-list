@@ -140,12 +140,12 @@ function saveToList(googleId, movieId, res) {
 }
 
 function removeFromList(reqBody, res) {
-  console.log('removeFromList body: ', reqBody)
+  // console.log('removeFromList body: ', reqBody)
   let googleId = reqBody.googleId;
   let movieId = reqBody.movie;
-  console.log('saveToList googleid: ', googleId)
+  // console.log('saveToList googleid: ', googleId)
   let id = '' + googleId + movieId
-  console.log('saveToList id: ', id)
+  // console.log('saveToList id: ', id)
   let table = `SAVEDMOVIES`
   let sql = `DELETE FROM ${table} WHERE ID=${id}`
   let database = new Database(config)

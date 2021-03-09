@@ -40,7 +40,6 @@ function App() {
     user['googleId'] = kR
     user['picUrl'] = jI
     user['email'] = nt
-    console.log('user: ', user)
     setUser(user)
     setLoggedIn(true)
   }
@@ -53,33 +52,23 @@ function App() {
     setMyList(newMyList)
   }
   async function localUnsave(i) {
-    console.log ('localUnsave, i: ', i)
     let movie = movies.find(movie => movie.id == i.id)
-    console.log('myList: ', myList)
-    console.log('myList: ', myList)
-    console.log('movies: ', movies)
-    console.log('movie: ', movie)
     let newList = movies.filter(movie => movie.id != i.id)
     let newMyList = myList.filter(movie => movie.id != i.id)
-    console.log('myList updated: ', myList)
-    console.log('newList updated: ', newList)
     removeMovie(i.id)
     await setMyList(newMyList)
     handleIfSaved(newList)
   }
 
   function handleLogin(response) {
-    console.log('handleLogin response: ', response)
     // history.push("/login")
     sendUser(response.Hs)
     createUser(response.Hs)
   }
   async function handleGetMovie(id) {
-    console.log('handleGetMovie id: ', id)
     alert('this feature is not yet functional')
     let query = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
     let movieInfo = await getMovie(query)
-    console.log('movieInfo: ', movieInfo)
   }
   async function handleIfSaved(movieList) {
     let newList = movieList.map((movie, index) => {
@@ -97,7 +86,6 @@ function App() {
     setShowMyList(showMyList ? false : true)
   }
   function handleSave(obj) {
-    console.log('handleSave: ', obj)
     obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
   }
 
@@ -124,27 +112,22 @@ function App() {
       .catch(err => console.log('getList error: ', err))
   }
   async function getMovie(searchTerm) {
-    console.log('in getMovies, search term: ', searchTerm)
     return await axios
       .get(searchTerm)
       .then(data => {
-        console.log('getMovies data: ', data)
         return data.data
       })
       .catch(err => console.log('get error: ', err))
   }
   async function getMovies(searchTerm) {
-    console.log('in getMovies, search term: ', searchTerm)
     return await axios
       .get(searchTerm)
       .then(data => {
-        console.log('getMovies data: ', data)
         return data.data.results
       })
       .catch(err => console.log('get error: ', err))
   }
   function removeMovie(movieInfo) {
-    console.log('app.js remove movie', movieInfo)
     axios({
       method: 'delete',
       url: '/deleteMovie',
