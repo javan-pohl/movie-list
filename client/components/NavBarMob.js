@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   arrow: {
+    paddingTop: '4px',
     [theme.breakpoints.up('sm')]: {
       display: 'none'
     }
