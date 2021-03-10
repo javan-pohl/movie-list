@@ -97,7 +97,7 @@ const NavBar = ({
     toLink = receivedMovies ? '/results' : '/search'
   }
   if (myList.length > 0) {
-    linkName = showList ? 'Back to Search' : 'My List'
+    linkName = showList ? <ArrowBackIcon className={classes.arrow} /> : 'My List'
   }
   // const linkName = showList ? 'Back to Results' : 'My List'
   // console.log('onchange function: ', onChange)
@@ -111,8 +111,7 @@ const NavBar = ({
           component={Link}
           to={toLink}
         >
-          <ArrowBackIcon className={classes.arrow} />
-          <Typography className={classes.titleText} variant="h6" noWrap>{linkName}</Typography>
+          {linkName}
         </LinkMUI>
       </Typography>
     )
