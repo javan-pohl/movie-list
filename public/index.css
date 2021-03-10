@@ -240,3 +240,24 @@ html {
 .movie-shadow {
   box-shadow: rgb(0, 0, 0) 0px 5px 15px;
 }
+
+@media only screen and (max-width: 600px) {
+  .flip-card {
+    background-color: transparent;
+    width: 100px;
+    height: 150px;
+    perspective: 500px;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100px;
+    height: 150px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  .movie-poster {
+    width: 100px;
+    height: 150px;
+  }
+}
