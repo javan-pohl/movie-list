@@ -23,9 +23,9 @@ const useStyles = makeStyles(theme => ({
   },
   arrow: {
     paddingTop: '4px',
-    [theme.breakpoints.up('sm')]: {
-      display: 'none'
-    }
+    // [theme.breakpoints.up('sm')]: {
+    //   display: 'none'
+    // }
   },
   title: {
     flexGrow: 2,
