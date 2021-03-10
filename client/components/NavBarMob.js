@@ -12,6 +12,7 @@ import LinkMUI from '@material-ui/core/Link'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,12 +21,22 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2)
   },
+  arrow: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
+    }
+  },
   title: {
     flexGrow: 2,
     display: 'block',
     width: '50%',
     [theme.breakpoints.up('sm')]: {
       display: 'block'
+    }
+  },
+  titleText: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
     }
   },
   search: {
@@ -99,7 +110,8 @@ const NavBar = ({
           component={Link}
           to={toLink}
         >
-          {linkName}
+          <ArrowBackIcon className={classes.arrow} />
+          <Typography className={classes.titleText} variant="h6" noWrap>{linkName}</Typography>
         </LinkMUI>
       </Typography>
     )
