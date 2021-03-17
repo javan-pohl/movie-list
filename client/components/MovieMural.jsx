@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from 'react'
-import Movies from './MoviesM.js'
+import React from 'react'
+import Movies from './MoviesM'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 
