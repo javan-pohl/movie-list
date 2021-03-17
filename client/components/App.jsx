@@ -17,6 +17,7 @@ import MovieList from './MovieList'
 import MovieMural from './MovieMural'
 import SelectedMovie from './SelectedMovie'
 import {
+  getMovie,
   getMovies,
   handleGetMovie,
   removeMovie,
@@ -49,7 +50,6 @@ function App() {
       if (history.action === 'POP') {
         if (locationKeys[1] === location.key) {
           setLocationKeys(([_, ...keys]) => keys)
-
           // Handle forward event
         } else {
           setLocationKeys(keys => [location.key, ...keys])
@@ -86,13 +86,11 @@ function App() {
     await setMyList(newMyList)
     handleIfSaved(movies, newMyList)
   }
-
   function handleLogin(response) {
     // history.push("/login")
     sendUser(response.Hs)
     createUser(response.Hs)
   }
-
   async function handleIfSaved(movieList, newMyList) {
     let list = newMyList || myList
     let newList = movieList.map((movie, index) => {
@@ -109,8 +107,15 @@ function App() {
   function handleMyListClick() {
     setShowMyList(showMyList ? false : true)
   }
-  function handleSave(obj) {
+  function handleSaveClick(obj) {
     obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
+  }
+  async function handleSummaryClick(id) {
+    // alert('this feature is not yet functional')
+    history.push("/summary")
+    let query = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
+    let movieInfo = await getMovie(query)
+    return movieInfo
   }
   function handleSearchChange(event) {
     setSearchTerm(event.target.value)
@@ -142,8 +147,8 @@ function App() {
           savedMovies={myList}
           movieList={thisList}
           receivedMovies={true}
-          onSave={movie => handleSave(movie)}
-          onSummaryClick={id => handleGetMovie(id)}
+          onSave={movie => handleSaveClick(movie)}
+          onSummaryClick={id => handleSummaryClick(id)}
         />
       </div>
     )
@@ -172,6 +177,10 @@ function App() {
           <Route path="/myList">
             {renderNav(true)}
             {renderMural(myList)}
+          </Route>
+          <Route path="/summary">
+            {renderNav(true)}
+            <Summary></Summary>
           </Route>
           <Route path="/login">
             <Redirect to="/search" />

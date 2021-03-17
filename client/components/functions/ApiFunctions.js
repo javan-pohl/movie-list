@@ -1,13 +1,6 @@
 import axios from 'axios'
 
-export async function handleGetMovie(id) {
-  // const handleGetMovie(id) {
-  alert('this feature is not yet functional')
-  let query = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
-  let movieInfo = await getMovie(query)
-}
-
-async function getMovie(searchTerm) {
+export async function getMovie(searchTerm) {
   return await axios
     .get(searchTerm)
     .then(data => {
@@ -34,7 +27,7 @@ export function removeMovie(googleId, movieInfo) {
       movie: movieInfo
     }
   })
-    .then(data => console.log('deleteUser success: '))
+    // .then(data => console.log('deleteUser success: ', data))
     .catch(err => console.log('deleteUser error: ', err))
 }
 
@@ -74,5 +67,4 @@ export function sendMyUser(user) {
     })
     .catch(err => console.log('sendUser error: ', err))
 }
-// export default handleGetMovie
-// export { handleGetMovie }
+

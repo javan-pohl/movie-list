@@ -7,3 +7,5 @@ const Summary = ({ movie }) => {
     </div>
   )
 }
+
+export default Summary
