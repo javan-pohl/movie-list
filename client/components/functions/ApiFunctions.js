@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-export async function getMovie(searchTerm) {
+export async function getMovie(id) {
+  let searchTerm = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
   return await axios
     .get(searchTerm)
     .then(data => {
@@ -9,7 +10,8 @@ export async function getMovie(searchTerm) {
     .catch(err => console.log('get error: ', err))
 }
 
-export async function getMovies(searchTerm) {
+export async function getMovies(unspaced) {
+  let searchTerm = `https://api.themoviedb.org/3/search/movie?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US&query=${unspaced}&page=1&include_adult=false`
   return await axios
     .get(searchTerm)
     .then(data => {

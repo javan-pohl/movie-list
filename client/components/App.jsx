@@ -84,14 +84,33 @@ function App() {
     let newMyList = myList.filter(movie => movie.id != i.id)
     removeMovie(user.googleId, i.id)
     await setMyList(newMyList)
-    handleIfSaved(movies, newMyList)
+    ifSaved(movies, newMyList)
   }
   function handleLogin(response) {
     // history.push("/login")
     sendUser(response.Hs)
     createUser(response.Hs)
   }
-  async function handleIfSaved(movieList, newMyList) {
+  function handleMyListClick() {
+    setShowMyList(showMyList ? false : true)
+  }
+  function handleSaveClick(obj) {
+    obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
+  }
+  async function handleSummaryClick(id) {
+    let movieInfo = await getMovie(id)
+    history.push(`/summary/${id}`)
+    console.log(movieInfo)
+  }
+  async function handleSearchSubmit(e) {
+    e.preventDefault()
+    let unspaced = searchTerm.replaceAll(' ', '%20')
+    let movieList = await getMovies(unspaced)
+    ifSaved(movieList)
+    setShowMyList(false)
+    history.push(`/results/${unspaced}`)
+  }
+  async function ifSaved(movieList, newMyList) {
     let list = newMyList || myList
     let newList = movieList.map((movie, index) => {
       movie.saved = list.reduce((accum, savedMovie) => {
@@ -104,34 +123,11 @@ function App() {
     })
     setMoviesState(newList)
   }
-  function handleMyListClick() {
-    setShowMyList(showMyList ? false : true)
-  }
-  function handleSaveClick(obj) {
-    obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
-  }
-  async function handleSummaryClick(id) {
-    // alert('this feature is not yet functional')
-    history.push("/summary")
-    let query = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
-    let movieInfo = await getMovie(query)
-    return movieInfo
-  }
-  function handleSearchChange(event) {
+  function searchChange(event) {
     setSearchTerm(event.target.value)
-  }
-  async function handleSearchSubmit(e) {
-    e.preventDefault()
-    let unspaced = searchTerm.replaceAll(' ', '%20')
-    history.push(`/results/${unspaced}`)
-    let sample_query = `https://api.themoviedb.org/3/search/movie?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US&query=${unspaced}&page=1&include_adult=false`
-    let movieList = await getMovies(sample_query)
-    handleIfSaved(movieList)
-    setShowMyList(false)
   }
   async function sendUser(user) {
     let movies = await sendMyUser(user)
-    console.log(movies)
     setMyList(movies)
   }
   async function setMoviesState(movies) {
@@ -160,7 +156,7 @@ function App() {
         value={searchTerm}
         showList={showListProp}
         receivedMovies={receivedMovies}
-        onChange={handleSearchChange}
+        onChange={searchChange}
         onSubmit={handleSearchSubmit}
         handleMyListClick={handleMyListClick}
       />
@@ -190,7 +186,7 @@ function App() {
             <div className="app">
               <Search
                 value={searchTerm}
-                onChange={handleSearchChange}
+                onChange={searchChange}
                 onSubmit={handleSearchSubmit}
               />
             </div>
