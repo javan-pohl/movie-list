@@ -44,6 +44,7 @@ let testUser = {
 }
 
 function getList(database, userId, res) {
+  console.log('db getList userId: ', userId)
   // let table = `SAVEDMOVIES`;
   // let sql = `SELECT MOVIEID FROM ${table} WHERE GOOGLEID like "${userId}"`;  database.query(sql)
   let table = `MOVIES`
@@ -73,13 +74,13 @@ function insertUser(user, res) {
   // user = req.body.user;
   // console.log('insertUser, user: ', user)
   let table = `USERS`
-  let sql = `INSERT IGNORE INTO ${table}(GOOGLEID, FIRSTNAME, LASTNAME, PICURL, EMAIL, DISPLAYNAME) VALUES('${user.kR}', '${user.QS}', '${user.SQ}', '${user.jI}', '${user.nt}', '${user.sd}')`
+  let sql = `INSERT IGNORE INTO ${table}(GOOGLEID, FIRSTNAME, LASTNAME, PICURL, EMAIL, DISPLAYNAME) VALUES('${user.googleId}', '${user.givenName}', '${user.familyName}', '${user.imageUrl}', '${user.email}', '${user.name}')`
   let database = new Database(config)
   database
     .query(sql)
     .then(() => {
       console.log('database insert user success!')
-      getList(database, user.kR, res)
+      getList(database, user.googleId, res)
 
       // res.status(200).send('user added!')
       // database.close()

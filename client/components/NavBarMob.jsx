@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from 'react'
-import SmallSearch from './SmallSearch.js'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
@@ -13,6 +12,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import SmallSearch from './SmallSearch'
 
 const useStyles = makeStyles(theme => ({
   root: {
