@@ -7,8 +7,8 @@ import {
   Redirect,
   Link
 } from 'react-router-dom'
-import Movies from './Movies.js'
 import Container from '@material-ui/core/Container'
+import Movies from './Movies'
 
 const MovieList = ({ receivedMovies, movieList, onSave }) => {
   let initial = 1000
