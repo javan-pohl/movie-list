@@ -3,7 +3,7 @@ import React from 'react'
 const Summary = ({ movie }) => {
   return (
     <div className="summary">
-      This is summary
+      Summary feature coming soon
     </div>
   )
 }

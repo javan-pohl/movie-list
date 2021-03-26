@@ -60,14 +60,15 @@ function App() {
     })
   }, [locationKeys])
 
-  function createUser({ QS, SQ, jI, nt, sd, kR }) {
-    let user = {}
-    user['firstName'] = QS
-    user['lastName'] = SQ
-    user['displayName'] = sd
-    user['googleId'] = kR
-    user['picUrl'] = jI
-    user['email'] = nt
+  // function createUser({ QS, SQ, jI, nt, sd, kR }) {
+    function createUser(user) {
+    // let user = {}
+    // user['firstName'] = QS
+    // user['lastName'] = SQ
+    // user['displayName'] = sd
+    // user['googleId'] = kR
+    // user['picUrl'] = jI
+    // user['email'] = nt
     setUser(user)
     setLoggedIn(true)
   }
@@ -88,8 +89,9 @@ function App() {
   }
   function handleLogin(response) {
     // history.push("/login")
-    sendUser(response.Hs)
-    createUser(response.Hs)
+    console.log(response)
+    sendUser(response.profileObj)
+    createUser(response.profileObj)
   }
   function handleMyListClick() {
     setShowMyList(showMyList ? false : true)
