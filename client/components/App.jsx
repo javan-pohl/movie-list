@@ -61,7 +61,7 @@ function App() {
   }, [locationKeys])
 
   // function createUser({ QS, SQ, jI, nt, sd, kR }) {
-    function createUser(user) {
+  function createUser(user) {
     // let user = {}
     // user['firstName'] = QS
     // user['lastName'] = SQ

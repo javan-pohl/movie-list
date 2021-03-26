@@ -34,6 +34,7 @@ export function removeMovie(googleId, movieInfo) {
 }
 
 export function sendMovie(googleId, movieInfo) {
+  console.log('sendMovie, googleId: ', googleId)
   axios({
     method: 'post',
     url: '/saveMovie',
@@ -47,12 +48,14 @@ export function sendMovie(googleId, movieInfo) {
 }
 
 export function sendMyUser(user) {
+  console.log('sendMyUser, user: ', user)
   return axios({
     method: 'post',
     url: '/createUser',
     data: user
   })
     .then(data => {
+      console.log('sendMyUser data: ', data)
       let movies = []
       data.data.forEach(movie => {
         let obj = {}
