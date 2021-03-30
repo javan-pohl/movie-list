@@ -15,6 +15,7 @@ export async function getMovies(unspaced) {
   return await axios
     .get(searchTerm)
     .then(data => {
+      console.log('movies: ', data.data.results)
       return data.data.results
     })
     .catch(err => console.log('get error: ', err))
@@ -55,7 +56,7 @@ export function sendMyUser(user) {
     data: user
   })
     .then(data => {
-      // console.log('sendMyUser data: ', data)
+      console.log('sendMyUser data: ', data)
       let movies = []
       data.data.forEach(movie => {
         let obj = {}
