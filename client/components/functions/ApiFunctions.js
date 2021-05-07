@@ -15,6 +15,7 @@ export async function getMovies(unspaced) {
   return await axios
     .get(searchTerm)
     .then(data => {
+      console.log('search data: ', data)
       return data.data.results
     })
     .catch(err => console.log('get error: ', err))
@@ -34,7 +35,7 @@ export function removeMovie(googleId, movieInfo) {
 }
 
 export function sendMovie(googleId, movieInfo) {
-  console.log('sendMovie, googleId: ', googleId)
+  // console.log('sendMovie, googleId: ', googleId)
   axios({
     method: 'post',
     url: '/saveMovie',
@@ -48,7 +49,7 @@ export function sendMovie(googleId, movieInfo) {
 }
 
 export function sendMyUser(user) {
-  console.log('sendMyUser, user: ', user)
+  // console.log('sendMyUser, user: ', user)
   return axios({
     method: 'post',
     url: '/createUser',

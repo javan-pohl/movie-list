@@ -10,7 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const Movies = ({ movie, onClick, onSave, time }) => {
   // console.log('is movie in mylist?: ', saved)
-  // console.log('movie: ', movie)
+  console.log('MoviesM movie: ', movie)
   const showStar = () =>
     movie.saved ? (
       <StarIcon fontSize="large" style={{ color: 'yellow' }} />

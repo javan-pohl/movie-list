@@ -1,0 +1,19 @@
+.summary {
+  display: flex;
+  height: 90%;
+  width: 90%;
+  margin: 20px auto 0px auto;
+  background-color: rgb(250, 244, 228);
+}
+
+.summaryImg {
+  flex-grow: 1;
+  height: 100%;
+  background-color: yellow;
+}
+
+.summaryBody {
+  flex-grow: 1;
+  height: 100%;
+  background-color: aqua;
+}

@@ -24,8 +24,10 @@ import {
   sendMovie,
   sendMyUser
 } from './functions/ApiFunctions'
+import { useCookies } from 'react-cookie'
 
 function App() {
+  const [cookies, setCookie] = useCookies(['user'])
   const [user, setUser] = useState({})
   const [movies, setMovies] = useState([])
   const [myList, setMyList] = useState([])
@@ -70,6 +72,7 @@ function App() {
     // user['picUrl'] = jI
     // user['email'] = nt
     setUser(user)
+    setCookie('user', user, { path: '/' })
     setLoggedIn(true)
   }
   function localSave(i) {
@@ -89,7 +92,7 @@ function App() {
   }
   function handleLogin(response) {
     // history.push("/login")
-    console.log(response)
+    // console.log(response)
     sendUser(response.profileObj)
     createUser(response.profileObj)
   }
@@ -102,9 +105,10 @@ function App() {
   async function handleSummaryClick(id) {
     let movieInfo = await getMovie(id)
     history.push(`/summary/${id}`)
-    console.log(movieInfo)
+    // console.log(movieInfo)
   }
   async function handleSearchSubmit(e) {
+    console.log('in handleSearchSubmit')
     e.preventDefault()
     let unspaced = searchTerm.replaceAll(' ', '%20')
     let movieList = await getMovies(unspaced)
