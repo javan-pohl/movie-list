@@ -3,17 +3,30 @@
   height: 90%;
   width: 90%;
   margin: 20px auto 0px auto;
-  background-color: rgb(250, 244, 228);
+
+}
+
+.summaryImgSection {
+  height: 100%;
+  background-color: none;
+  display: flex;
+  align-items: center;
 }
 
 .summaryImg {
-  flex-grow: 1;
-  height: 100%;
-  background-color: yellow;
+  margin: 0 auto;
+  align-self: flex-start;
 }
 
 .summaryBody {
   flex-grow: 1;
   height: 100%;
-  background-color: aqua;
+  background-color: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .summary {
+    flex-direction: column;
+  }
 }
