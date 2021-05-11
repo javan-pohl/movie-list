@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import apiKey from '../../../keys/tmdb'
+import apiKey from '../../../keys/Tmdb'
 
 export async function getMovie(id) {
   let searchTerm = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
