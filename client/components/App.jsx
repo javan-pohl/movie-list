@@ -25,7 +25,7 @@ import {
   sendMyUser
 } from './functions/ApiFunctions'
 import { useCookies } from 'react-cookie'
-import { Aliens } from './testData/Aliens'
+import { Aliens } from './testData/TestData'
 
 function App() {
   const [cookies, setCookie] = useCookies(['user'])
