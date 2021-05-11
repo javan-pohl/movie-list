@@ -16,5 +16,14 @@ module.exports = {
     vote_average: 7.9,
     vote_count: 6861,
     saved: true
+  },
+  User: {
+    googleId: '102965437531014883896',
+    imageUrl:
+      'https://lh3.googleusercontent.com/a-/AOh14GiMfSSoQYrF08RBIrcsguDTdtGqR4UiqtgUwsDjWWc=s96-c',
+    email: 'javanpohl@gmail.com',
+    name: 'Javan Pohl',
+    givenName: 'Javan',
+    familyName: 'Pohl'
   }
 }

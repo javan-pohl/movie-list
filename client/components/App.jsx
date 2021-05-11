@@ -25,7 +25,7 @@ import {
   sendMyUser
 } from './functions/ApiFunctions'
 import { useCookies } from 'react-cookie'
-import { Aliens } from './testData/TestData'
+import { Aliens, User } from './testData/TestData'
 
 function App() {
   const [cookies, setCookie] = useCookies(['user'])
@@ -74,15 +74,7 @@ function App() {
     // user['email'] = nt
 
     // my user info (for keeping me logged in to test things):
-    user = {
-      googleId: '102965437531014883896',
-      imageUrl:
-        'https://lh3.googleusercontent.com/a-/AOh14GiMfSSoQYrF08RBIrcsguDTdtGqR4UiqtgUwsDjWWc=s96-c',
-      email: 'javanpohl@gmail.com',
-      name: 'Javan Pohl',
-      givenName: 'Javan',
-      familyName: 'Pohl'
-    }
+    user = User
     console.log('user: ', user)
     setUser(user)
     setCookie('user', user, { path: '/' })
