@@ -1,9 +1,12 @@
 import React, { useState, Fragment } from 'react'
 import Grid from '@material-ui/core/Grid'
 import styles from './Summary.module.css'
+import { getMPAA } from './functions/Functions'
 
 const Summary = ({ movie }) => {
   console.log('movie: ', movie)
+  const MPAA = getMPAA(movie)
+  console.log('MPAA: ', MPAA)
   const poster_url = `https://image.tmdb.org/t/p/w300${movie.poster_path}`
   const backdrop_url = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
   const backdrop_style = {

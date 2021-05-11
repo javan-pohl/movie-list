@@ -1,18 +1,22 @@
 import axios from 'axios'
-import apiKey from '../../../keys/Tmdb'
+import { apiKey } from '../../../keys/Tmdb'
 
 export async function getMovie(id) {
-  let searchTerm = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
+  // let searchTerm = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
+  let searchTerm = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US&append_to_response=release_dates`
   return await axios
     .get(searchTerm)
     .then(data => {
+      console.log('getMovie movie: ', data)
       return data.data
     })
     .catch(err => console.log('get error: ', err))
 }
 
 export async function getMovies(unspaced) {
-  let searchTerm = `https://api.themoviedb.org/3/search/movie?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US&query=${unspaced}&page=1&include_adult=false`
+  let page = 1
+  let adult = false
+  let searchTerm = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${unspaced}&page=${page}&include_adult=${adult}`
   return await axios
     .get(searchTerm)
     .then(data => {
@@ -24,6 +28,13 @@ export async function getMovies(unspaced) {
 
 export function getMPAA(id) {
   let searchTerm = `https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${apiKey}`
+  axios
+    .get(searchTerm)
+    .then(data => {
+      console.log('mpaa api data: ', data)
+
+    })
+    .catch(err => console.log('get error: ', err))
 }
 
 export function removeMovie(googleId, movieInfo) {
@@ -61,7 +72,7 @@ export function sendMyUser(user) {
     data: user
   })
     .then(data => {
-      console.log('sendMyUser data: ', data)
+      // console.log('sendMyUser data: ', data)
       let movies = []
       data.data.forEach(movie => {
         let obj = {}
@@ -74,6 +85,7 @@ export function sendMyUser(user) {
         movies.push(obj)
       })
       // setMyList(movies)
+      console.log('sendMyUser movies: ', movies)
       return movies
     })
     .catch(err => console.log('sendUser error: ', err))

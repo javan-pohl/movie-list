@@ -17,6 +17,7 @@ import MovieList from './MovieList'
 import MovieMural from './MovieMural'
 import SelectedMovie from './SelectedMovie'
 import {
+  getMPAA,
   getMovie,
   getMovies,
   handleGetMovie,
@@ -24,21 +25,21 @@ import {
   sendMovie,
   sendMyUser
 } from './functions/ApiFunctions'
-import { useCookies } from 'react-cookie'
-import { Aliens, User } from './testData/TestData'
+// import { useCookies } from 'react-cookie'
+import { AliensFull as Aliens, User } from './testData/TestData'
 
 function App() {
-  const [cookies, setCookie] = useCookies(['user'])
+  // const [cookies, setCookie] = useCookies(['user'])
   const [user, setUser] = useState({})
   const [movies, setMovies] = useState([])
   const [myList, setMyList] = useState([])
   const [pageNum, setPageNum] = useState(1)
   const [loggedIn, setLoggedIn] = useState(false)
   const [showMovie, setShowMovie] = useState(false)
-  const [movieInfo, setmovieInfo] = useState([])
+  const [movieInfo, setMovieInfo] = useState([])
   const [showMyList, setShowMyList] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const [showOneMovie, setshowOneMovie] = useState(false)
+  const [showOneMovie, setShowOneMovie] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState('')
   const [receivedMovies, setReceivedMovies] = useState(false)
   const [locationKeys, setLocationKeys] = useState([])
@@ -49,7 +50,6 @@ function App() {
       if (history.action === 'PUSH') {
         setLocationKeys([location.key])
       }
-
       if (history.action === 'POP') {
         if (locationKeys[1] === location.key) {
           setLocationKeys(([_, ...keys]) => keys)
@@ -63,21 +63,13 @@ function App() {
     })
   }, [locationKeys])
 
-  // function createUser({ QS, SQ, jI, nt, sd, kR }) {
   function createUser(user) {
-    // let user = {}
-    // user['firstName'] = QS
-    // user['lastName'] = SQ
-    // user['displayName'] = sd
-    // user['googleId'] = kR
-    // user['picUrl'] = jI
-    // user['email'] = nt
-
     // my user info (for keeping me logged in to test things):
     user = User
+
     console.log('user: ', user)
     setUser(user)
-    setCookie('user', user, { path: '/' })
+    // setCookie('user', user, { path: '/' })
     setLoggedIn(true)
   }
 
@@ -109,7 +101,9 @@ function App() {
     obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
   }
   async function handleSummaryClick(id) {
-    let movieInfo = await getMovie(id)
+    let movie = await getMovie(id)
+    setMovieInfo(movie)
+    console.log('handleSummaryClick id: ', id)
     history.push(`/summary/${id}`)
     // console.log(movieInfo)
   }
@@ -188,7 +182,7 @@ function App() {
           </Route>
           <Route path="/summary">
             {renderNav(true)}
-            <Summary></Summary>
+            <Summary movie={movieInfo}></Summary>
           </Route>
           <Route path="/login">
             <Redirect to="/search" />
@@ -209,10 +203,14 @@ function App() {
       return (
         <Switch>
           <Route path="/">
-            {/* <Redirect to="/login" /> */}
-            {/* <Login handleLogin={handleLogin} /> */}
+            {/* <Redirect to="/login" />
+            <Login handleLogin={handleLogin} /> */}
             <Redirect to="/summary" />
             <Summary movie={Aliens}></Summary>
+            {/* <Redirect to="/myList">
+              {renderNav(true)}
+              {renderMural(myList)}
+            </Redirect> */}
           </Route>
         </Switch>
       )
