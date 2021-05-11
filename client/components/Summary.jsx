@@ -39,7 +39,8 @@ const Summary = ({ movie }) => {
   const backdrop_style = {
     backgroundImage: `linear-gradient(rgb(0,0,0,0.85),
     rgb(0,0,0,0.85)), url(${backdrop_url})`,
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
+    backgroundRepeat: 'repeat'
   }
   function CircularProgressWithLabel(val) {
     return (
@@ -94,8 +95,12 @@ const Summary = ({ movie }) => {
           </span>
         </h1>
         {renderInfo()}
-        <div className={styles.ratingsBar}>{CircularProgressWithLabel(movie.vote_average * 10)}</div>
-        <div className={styles.overview}>summary body</div>
+        <div className={styles.ratingsBar}>{CircularProgressWithLabel(movie.vote_average * 10)}
+        <div className={styles.ratingsBarText}>User Score</div>
+        </div>
+        <div className={styles.tagline}>{movie.tagline}</div>
+        <div className={styles.overviewHeading}>Overview</div>
+        <div className={styles.overviewBody}>{movie.overview}</div>
       </div>
     </div>
   )
