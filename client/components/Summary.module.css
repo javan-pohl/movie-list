@@ -5,23 +5,10 @@
   height: 90%;
   width: 90%;
   margin: 20px auto 0px auto;
-  /* background-image: url('https://placekitten.com/1200/800'); */
-  /* background-color: rgb(0,0,0,0.8); */
-  /* opacity: 0.75; */
+  padding-left: 5%;
 }
 
-/* .psuedoElement { */
-/* .summary::before {
-  content: "";
-  background-image: url('https://placekitten.com/1200/800');
-  background-size: cover;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  opacity: 0.75;
-} */
+
 .summaryImgSection {
   height: 100%;
   background-color: none;
@@ -35,11 +22,15 @@
 }
 
 .summaryBody {
+  padding-left: 5%;
   flex-grow: 1;
   height: 100%;
   background-color: none;
 }
-
+.headingDate{
+  color: grey;
+  font-weight: 100;
+}
 @media only screen and (max-width: 600px) {
   .summary {
     flex-direction: column;

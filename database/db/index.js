@@ -1,5 +1,4 @@
 var mysql = require('mysql')
-// var dbConnection = require('./config.js')
 var config = require('../../keys/mysql.js')
 
 // let config = {
@@ -12,7 +11,6 @@ var config = require('../../keys/mysql.js')
 
 class Database {
   constructor(config) {
-    // this.connection = mysql.createConnection(config)
     this.connection = mysql.createPool(config)
   }
   query(sql, args) {
@@ -33,15 +31,6 @@ class Database {
   }
 }
 
-let testUser = {
-  displayName: 'Javan Pohl',
-  email: 'javanpohl@gmail.com',
-  firstName: 'Javan',
-  googleId: '102965437531014883896',
-  lastName: 'Pohl',
-  picUrl:
-    'https://lh4.googleusercontent.com/-y3CGnI5Sn3Y/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuck9OfXPQfhC8Gwlj-SfK-DxWuQwzw/s96-c/photo.jpg'
-}
 
 function getList(database, userId, res) {
   console.log('db getList userId: ', userId)

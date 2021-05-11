@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import apiKey from '../../../keys/tmdb'
 
 export async function getMovie(id) {
   let searchTerm = `https://api.themoviedb.org/3/movie/${id}?api_key=69068131cf6aae96cd5fba4cafd706d8&language=en-US`
@@ -19,6 +20,10 @@ export async function getMovies(unspaced) {
       return data.data.results
     })
     .catch(err => console.log('get error: ', err))
+}
+
+export function getMPAA(id) {
+  let searchTerm = `https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${apiKey}`
 }
 
 export function removeMovie(googleId, movieInfo) {
