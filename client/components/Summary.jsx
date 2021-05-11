@@ -63,7 +63,7 @@ const Summary = ({ movie }) => {
             <Typography
               variant="caption"
               component="div"
-            >{`${movie.vote_average * 10}`}</Typography>
+            >{`${val}%`}</Typography>
           </Box>
         </Box>
       </ThemeProvider>
@@ -94,7 +94,7 @@ const Summary = ({ movie }) => {
           </span>
         </h1>
         {renderInfo()}
-        <div className={styles.ratingsBar}>{CircularProgressWithLabel(75)}</div>
+        <div className={styles.ratingsBar}>{CircularProgressWithLabel(movie.vote_average * 10)}</div>
         <div className={styles.overview}>summary body</div>
       </div>
     </div>
