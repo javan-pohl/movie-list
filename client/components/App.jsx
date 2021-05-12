@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom'
 import Login from './Login'
 import Search from './Search'
-import NavBar from './NavBarMob'
+import NavBar from './NavBar'
 import Summary from './Summary'
 import MovieMural from './MovieMural'
 import {
