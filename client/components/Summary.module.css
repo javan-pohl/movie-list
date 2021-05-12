@@ -2,12 +2,12 @@
   position: relative;
   color: white;
   display: flex;
-  height: 90%;
   width: 90%;
   margin: 20px auto 0px auto;
   padding-left: 5%;
   background-repeat: repeat;
   background-color: grey;
+  overflow-wrap: normal;
 }
 h1 {
   margin-bottom: 10px;
@@ -71,5 +71,12 @@ h1 {
 @media only screen and (max-width: 600px) {
   .summary {
     flex-direction: column;
+    width: 95%;
+    margin-top: 0px;
+    padding: 0px 8px 0 8px;
+  }
+  .body {
+    padding-left: 0%;
+    padding-right: 5%;
   }
 }
