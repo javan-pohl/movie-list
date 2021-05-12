@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/styles'
 import { createMuiTheme } from '@material-ui/core/styles'
 import styles from './Summary.module.css'
 import { getMPAA } from './functions/Functions'
@@ -70,18 +70,7 @@ const Summary = ({ movie }) => {
       </ThemeProvider>
     )
   }
-  const renderInfo = () => (
-    <div className={styles.info}>
-      <span className={styles.MPAA}>{MPAA}</span>
-      <span className={styles.infoInner}>
-        {movie.release_date}
-        &nbsp;&#8226;&nbsp;
-        {genres}
-        &nbsp;&#8226;&nbsp;
-        {runtimeStr}
-      </span>
-    </div>
-  )
+
   return (
     <div className={styles.summary} style={backdrop_style}>
       <div className={styles.summaryImgSection}>
@@ -94,9 +83,19 @@ const Summary = ({ movie }) => {
             ({movie.release_date.slice(0, 4)})
           </span>
         </h1>
-        {renderInfo()}
-        <div className={styles.ratingsBar}>{CircularProgressWithLabel(movie.vote_average * 10)}
-        <div className={styles.ratingsBarText}>User Score</div>
+        <div className={styles.info}>
+          <span className={styles.MPAA}>{MPAA}</span>
+          <span className={styles.infoInner}>
+            {movie.release_date}
+            &nbsp;&#8226;&nbsp;
+            {genres}
+            &nbsp;&#8226;&nbsp;
+            {runtimeStr}
+          </span>
+        </div>
+        <div className={styles.ratingsBar}>
+          {CircularProgressWithLabel(movie.vote_average * 10)}
+          <div className={styles.ratingsBarText}>User Score</div>
         </div>
         <div className={styles.tagline}>{movie.tagline}</div>
         <div className={styles.overviewHeading}>Overview</div>

@@ -13,9 +13,7 @@ import Login from './Login'
 import Search from './Search'
 import NavBar from './NavBarMob'
 import Summary from './Summary'
-import MovieList from './MovieList'
 import MovieMural from './MovieMural'
-import SelectedMovie from './SelectedMovie'
 import {
   getMPAA,
   getMovie,
