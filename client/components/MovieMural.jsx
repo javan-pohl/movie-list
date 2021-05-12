@@ -18,7 +18,6 @@ function MovieMural({
         <Movie
           key={index}
           movie={movie}
-          time={index * 100}
           onSave={() => onSave({ movie, index })}
           onClick={() => onSummaryClick(movie.id)}
         />

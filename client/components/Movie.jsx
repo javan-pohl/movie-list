@@ -2,13 +2,10 @@ import React, { useState, Fragment } from 'react'
 import Fade from 'react-reveal/Fade'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import StarIcon from '@material-ui/icons/Star'
-import IconButton from '@material-ui/core/IconButton'
-import StarBorderIcon from '@material-ui/icons/StarBorder'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import MovieSaveStar from './MovieSaveStar'
 
-function Movie({ movie, onClick, onSave, time }) {
+function Movie({ movie, onClick, onSave}) {
   // console.log('is movie in mylist?: ', saved)
   // console.log('MoviesM movie: ', movie)
 
@@ -32,7 +29,7 @@ function Movie({ movie, onClick, onSave, time }) {
               direction="column"
             >
               <Grid item>
-                <MovieSaveStar saved={movie.saved} />
+                <MovieSaveStar saved={movie.saved} onSave={onSave} />
               </Grid>
 
               <Grid item>

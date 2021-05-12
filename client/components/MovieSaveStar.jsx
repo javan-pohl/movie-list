@@ -3,7 +3,7 @@ import StarIcon from '@material-ui/icons/Star'
 import IconButton from '@material-ui/core/IconButton'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 
-function MovieSaveStar({ saved }) {
+function MovieSaveStar({ saved, onSave }) {
   const showStar = () =>
     saved ? (
       <StarIcon fontSize="large" style={{ color: 'yellow' }} />

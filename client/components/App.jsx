@@ -100,7 +100,8 @@ function App() {
   }
   async function handleSearchSubmit(e) {
     e.preventDefault()
-    let unspaced = searchTerm.replaceAll(' ', '%20')
+    let SearchTerm = searchTerm.replaceAll('%','')
+    let unspaced = SearchTerm.replaceAll(' ', '%20')
     let movieList = await getMovies(unspaced)
     ifSaved(movieList)
     setShowMyList(false)
