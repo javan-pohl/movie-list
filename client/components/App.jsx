@@ -1,16 +1,15 @@
 import axios from 'axios'
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment, Suspense } from 'react'
 import {
-  HashRouter,
   useHistory,
   Redirect,
-  Router,
   Route,
   Switch,
   Link
 } from 'react-router-dom'
 import Login from './Login'
-import Search from './Search'
+// import Search from './Search'
+const Search = React.lazy(() => import('./Search'))
 import NavBar from './NavBar'
 import Summary from './Summary'
 import MovieMural from './MovieMural'
@@ -24,7 +23,7 @@ import {
   sendMyUser
 } from './functions/ApiFunctions'
 // import { useCookies } from 'react-cookie'
-import { AliensFull as Aliens, User } from './testData/TestData'
+// import { AliensFull as Aliens, User } from './testData/TestData'
 
 function App() {
   // const [cookies, setCookie] = useCookies(['user'])
