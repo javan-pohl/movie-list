@@ -1,24 +1,23 @@
 import React from 'react'
-import Movies from './MoviesM'
+import Movie from './Movie'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 
-const MovieList = ({
-  receivedMovies,
+function MovieMural({
+  receivedMovie,
   movieList,
-  savedMovies,
+  savedMovie,
   onSave,
   onSummaryClick
-}) => {
-  // console.log('movieList: ', savedMovies)
+}) {
+  // console.log('movieList: ', savedMovie)
 
   let movies = movieList.map((movie, index) => {
     if (movie.poster_path) {
       return (
-        <Movies
+        <Movie
           key={index}
           movie={movie}
-          time={index * 100}
           onSave={() => onSave({ movie, index })}
           onClick={() => onSummaryClick(movie.id)}
         />
@@ -42,4 +41,4 @@ const MovieList = ({
   )
 }
 
-export default MovieList
+export default MovieMural

@@ -1,22 +1,13 @@
 import React, { useState, Fragment } from 'react'
-// import Flip from '@material-ui/core/Fade'
 import Fade from 'react-reveal/Fade'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import StarIcon from '@material-ui/icons/Star'
-import IconButton from '@material-ui/core/IconButton'
-import StarBorderIcon from '@material-ui/icons/StarBorder'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
+import MovieSaveStar from './MovieSaveStar'
 
-const Movies = ({ movie, onClick, onSave, time }) => {
+function Movie({ movie, onClick, onSave}) {
   // console.log('is movie in mylist?: ', saved)
-  // console.log('movie: ', movie)
-  const showStar = () =>
-    movie.saved ? (
-      <StarIcon fontSize="large" style={{ color: 'yellow' }} />
-    ) : (
-      <StarBorderIcon fontSize="large" />
-    )
+  // console.log('MoviesM movie: ', movie)
 
   const poster_url = `https://image.tmdb.org/t/p/w200${movie.poster_path}`
   return (
@@ -38,7 +29,7 @@ const Movies = ({ movie, onClick, onSave, time }) => {
               direction="column"
             >
               <Grid item>
-                <IconButton onClick={() => onSave()}>{showStar()}</IconButton>
+                <MovieSaveStar saved={movie.saved} onSave={onSave} />
               </Grid>
 
               <Grid item>
@@ -57,4 +48,4 @@ const Movies = ({ movie, onClick, onSave, time }) => {
   )
 }
 
-export default Movies
+export default Movie

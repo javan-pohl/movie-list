@@ -1,0 +1,82 @@
+.summary {
+  position: relative;
+  color: white;
+  display: flex;
+  width: 90%;
+  margin: 20px auto 0px auto;
+  padding: 2%;
+  background-repeat: repeat;
+  background-color: grey;
+  overflow-wrap: normal;
+}
+h1 {
+  margin-bottom: 10px;
+}
+
+.MPAA {
+  color: grey;
+  border: 1px solid grey;
+  padding: 2px;
+}
+.info {
+  margin-bottom: 15px;
+  color: rgb(207, 207, 207);
+  line-height: 150%;
+}
+.infoInner {
+  margin-left: 6px;
+}
+.ratingsBar {
+  margin-bottom: 10px;
+}
+.ratingsBarText {
+  vertical-align: top;
+  margin-left: 5px;
+  padding-top: 5px;
+  display: inline-block;
+  height: 100%;
+  width: 1%;
+  overflow-wrap: normal;
+}
+.tagline {
+  font-style: italic;
+}
+.overviewHeading {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 15px 0px;
+}
+.summaryImgSection {
+  height: 100%;
+  background-color: none;
+  display: flex;
+  align-items: center;
+}
+
+.summaryImg {
+  margin: 0 auto;
+  align-self: flex-start;
+}
+
+.body {
+  padding: 0 0 5% 5%;
+  flex-grow: 1;
+  height: 100%;
+  background-color: none;
+}
+.headingDate{
+  color: grey;
+  font-weight: 100;
+}
+@media only screen and (max-width: 600px) {
+  .summary {
+    flex-direction: column;
+    width: 95%;
+    margin-top: 0px;
+    padding: 0px 8px 0 8px;
+  }
+  .body {
+    padding: 0% 5% 5% 0%;
+    margin-left: 3%;
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter, Router, Route, Switch, Redirect, Link} from 'react-router-dom';
 
 
-const SmallSearch = ({value, onChange, onSubmit}) => {
+const NavSearch = ({value, onChange, onSubmit}) => {
   console.log('in Search');
   return (
     <div id="small-search" className="small-search inline-block">
@@ -27,4 +27,4 @@ const SmallSearch = ({value, onChange, onSubmit}) => {
   )
 }
 
-export default SmallSearch;
+export default NavSearch;
