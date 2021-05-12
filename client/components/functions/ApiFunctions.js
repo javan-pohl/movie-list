@@ -7,7 +7,7 @@ export async function getMovie(id) {
   return await axios
     .get(searchTerm)
     .then(data => {
-      console.log('getMovie movie: ', data)
+      // console.log('getMovie movie: ', data)
       return data.data
     })
     .catch(err => console.log('get error: ', err))
@@ -20,7 +20,7 @@ export async function getMovies(unspaced) {
   return await axios
     .get(searchTerm)
     .then(data => {
-      console.log('search data: ', data)
+      // console.log('search data: ', data)
       return data.data.results
     })
     .catch(err => console.log('get error: ', err))
@@ -85,7 +85,7 @@ export function sendMyUser(user) {
         movies.push(obj)
       })
       // setMyList(movies)
-      console.log('sendMyUser movies: ', movies)
+      // console.log('sendMyUser movies: ', movies)
       return movies
     })
     .catch(err => console.log('sendUser error: ', err))

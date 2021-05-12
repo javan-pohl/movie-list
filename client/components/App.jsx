@@ -63,11 +63,8 @@ function App() {
 
   function createUser(user) {
     // my user info (for keeping me logged in to test things):
-    user = User
-
-    console.log('user: ', user)
+    // user = User
     setUser(user)
-    // setCookie('user', user, { path: '/' })
     setLoggedIn(true)
   }
 
@@ -87,8 +84,6 @@ function App() {
     ifSaved(movies, newMyList)
   }
   function handleLogin(response) {
-    // history.push("/login")
-    // console.log(response)
     sendUser(response.profileObj)
     createUser(response.profileObj)
   }
@@ -101,12 +96,9 @@ function App() {
   async function handleSummaryClick(id) {
     let movie = await getMovie(id)
     setMovieInfo(movie)
-    console.log('handleSummaryClick id: ', id)
     history.push(`/summary/${id}`)
-    // console.log(movieInfo)
   }
   async function handleSearchSubmit(e) {
-    console.log('in handleSearchSubmit')
     e.preventDefault()
     let unspaced = searchTerm.replaceAll(' ', '%20')
     let movieList = await getMovies(unspaced)
@@ -201,10 +193,10 @@ function App() {
       return (
         <Switch>
           <Route path="/">
-            {/* <Redirect to="/login" />
-            <Login handleLogin={handleLogin} /> */}
-            <Redirect to="/summary" />
-            <Summary movie={Aliens}></Summary>
+            <Redirect to="/login" />
+            <Login handleLogin={handleLogin} />
+            {/* <Redirect to="/summary" />
+            <Summary movie={Aliens}></Summary> */}
             {/* <Redirect to="/myList">
               {renderNav(true)}
               {renderMural(myList)}
