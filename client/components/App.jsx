@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect, Fragment, Suspense } from 'react'
 import { useHistory, Redirect, Route, Switch } from 'react-router-dom'
-import loadable from "@loadable/component"
+import loadable from '@loadable/component'
 import Login from './Login'
 import Search from './Search'
 import NavBar from './NavBar'
@@ -53,7 +53,6 @@ function App() {
           // Handle forward event
         } else {
           setLocationKeys(keys => [location.key, ...keys])
-          // setShowMyList(false)
           // Handle back event
         }
       }
@@ -84,8 +83,7 @@ function App() {
     let SearchTerm = searchTerm.replaceAll('%', '')
     let unspaced = SearchTerm.replaceAll(' ', '%20')
     let movieList = await getMovies(unspaced)
-    isMovieSaved(movieList)
-    // setShowMyList(false)
+    saveMovieToList(movieList)
     history.push(`/results/${unspaced}`)
   }
   async function handleSummaryClick(id) {
@@ -93,7 +91,15 @@ function App() {
     setMovieInfo(movie)
     history.push(`/summary/${id}`)
   }
-  async function isMovieSaved(movieList, newMyList) {
+  function saveMovie(i) {
+    let newList = movies.slice()
+    let newMyList = myList.slice()
+    newList[i].saved = true
+    newMyList.push(newList[i])
+    sendMovie(user.googleId, movies[i])
+    setMyList(newMyList)
+  }
+  async function saveMovieToList(movieList, newMyList) {
     let list = newMyList || myList
     let newList = movieList.map((movie, index) => {
       movie.saved = list.reduce((accum, savedMovie) => {
@@ -104,31 +110,25 @@ function App() {
       }, false)
       return movie
     })
+    // I set this as a function to ensure that it was all running before continuing
+    // MovieMural does not load properly without doing so
     setMoviesState(newList)
   }
-  function saveMovie(i) {
-    let newList = movies.slice()
-    let newMyList = myList.slice()
-    newList[i].saved = true
-    newMyList.push(newList[i])
-    sendMovie(user.googleId, movies[i])
-    setMyList(newMyList)
+  async function setMoviesState(movies) {
+    await setMovies(movies)
+    await setReceivedMovies(true)
+    return
   }
   async function unsaveMovie(i) {
     let movie = movies.find(movie => movie.id == i.id)
     let newMyList = myList.filter(movie => movie.id != i.id)
     removeMovie(user.googleId, i.id)
     await setMyList(newMyList)
-    isMovieSaved(movies, newMyList)
+    saveMovieToList(movies, newMyList)
   }
   async function sendUser(user) {
     let movies = await sendMyUser(user)
     setMyList(movies)
-  }
-  async function setMoviesState(movies) {
-    await setMovies(movies)
-    await setReceivedMovies(true)
-    return
   }
   const renderMural = thisList => {
     return (
@@ -161,14 +161,10 @@ function App() {
     if (loggedIn) {
       return (
         <Suspense fallback={<div>Loading...</div>}>
-        {renderNav()}
+          {renderNav()}
           <Switch>
-            <Route path="/results">
-              {renderMural(movies)}
-            </Route>
-            <Route path="/myList">
-              {renderMural(myList)}
-            </Route>
+            <Route path="/results">{renderMural(movies)}</Route>
+            <Route path="/myList">{renderMural(myList)}</Route>
             <Route path="/summary">
               <Summary movie={movieInfo}></Summary>
             </Route>
