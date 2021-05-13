@@ -1,11 +1,3 @@
-body,
-html {
-  min-height: 100%;
-  height: 100%;
-  background-color: teal;
-  margin: 0;
-  padding: 0;
-}
 :root {
   --search-height: 200px;
   --search-width: 400px;
@@ -54,10 +46,6 @@ html {
   display: flex;
 }
 
-#main {
-  height: 100%;
-  width: 100%;
-}
 .app {
   height: 90%;
   width: 100%;
