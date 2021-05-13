@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import { ThemeProvider } from '@material-ui/styles'
 import { createMuiTheme } from '@material-ui/core/styles'
-import styles from './Summary.module.css'
 import { getMPAA } from './functions/Functions'
+import styles from './Summary.module.css'
 
 const theme = createMuiTheme({
   palette: {

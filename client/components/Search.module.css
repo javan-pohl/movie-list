@@ -1,0 +1,22 @@
+/* :root {
+  --search-height: 200px;
+  --search-width: 400px;
+  --popup-height: 1000px;
+  --popup-width: 1000px;
+} */
+/* #search {
+  height: var(--search-height);
+  margin-top: calc(var(--search-height) / -2);
+  width: var(--search-width);
+  margin-left: calc(var(--search-width) / -2);
+  background-color: grey;
+  top: 50%;
+  left: 50%;
+  position: fixed;
+} */
+
+.app {
+  height: 90%;
+  width: 100%;
+  display: flex;
+}

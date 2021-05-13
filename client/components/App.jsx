@@ -7,7 +7,6 @@ import Search from './Search'
 import NavBar from './NavBar'
 import Summary from './Summary'
 import MovieMural from './MovieMural'
-import styles from './App.module.css'
 
 // const Search = React.lazy(() => import('./Search'))
 // const NavBar = React.lazy(() => import('./NavBar'))

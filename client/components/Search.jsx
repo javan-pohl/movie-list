@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper'
 import { shadows } from '@material-ui/system'
 import SearchIcon from '@material-ui/icons/Search'
 import Fade from '@material-ui/core/Fade'
+import styles from './Search.module.css'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +28,7 @@ const Search = ({ value, onChange, onSubmit }) => {
   const classes = useStyles()
 
   return (
-    <div className="app">
+    <div className={styles.app}>
       <Grid
         container
         spacing={2}
