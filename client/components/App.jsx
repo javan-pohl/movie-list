@@ -1,18 +1,17 @@
 import axios from 'axios'
 import React, { useState, useEffect, Fragment, Suspense } from 'react'
-import {
-  useHistory,
-  Redirect,
-  Route,
-  Switch,
-  Link
-} from 'react-router-dom'
+import { useHistory, Redirect, Route, Switch } from 'react-router-dom'
+import loadable from "@loadable/component"
 import Login from './Login'
 // import Search from './Search'
+// import NavBar from './NavBar'
+// import Summary from './Summary'
+// import MovieMural from './MovieMural'
 const Search = React.lazy(() => import('./Search'))
-import NavBar from './NavBar'
-import Summary from './Summary'
-import MovieMural from './MovieMural'
+const NavBar = React.lazy(() => import('./NavBar'))
+const Summary = React.lazy(() => import('./Summary'))
+const MovieMural = React.lazy(() => import('./MovieMural'))
+
 import {
   getMPAA,
   getMovie,
@@ -30,16 +29,17 @@ function App() {
   const [user, setUser] = useState({})
   const [movies, setMovies] = useState([])
   const [myList, setMyList] = useState([])
-  const [pageNum, setPageNum] = useState(1)
   const [loggedIn, setLoggedIn] = useState(false)
-  const [showMovie, setShowMovie] = useState(false)
   const [movieInfo, setMovieInfo] = useState([])
-  const [showMyList, setShowMyList] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const [showOneMovie, setShowOneMovie] = useState(false)
-  const [selectedMovie, setSelectedMovie] = useState('')
   const [receivedMovies, setReceivedMovies] = useState(false)
   const [locationKeys, setLocationKeys] = useState([])
+  // const [showOneMovie, setShowOneMovie] = useState(false)
+  // const [selectedMovie, setSelectedMovie] = useState('')
+  // const [showMyList, setShowMyList] = useState(false)
+  // const [pageNum, setPageNum] = useState(1)
+  // const [showMovie, setShowMovie] = useState(false)
+
   let history = useHistory()
 
   useEffect(() => {
@@ -87,7 +87,8 @@ function App() {
     createUser(response.profileObj)
   }
   function handleMyListClick() {
-    setShowMyList(showMyList ? false : true)
+    // setShowMyList(showMyList ? false : true)
+    history.push('/myList')
   }
   function handleSaveClick(obj) {
     obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
@@ -99,7 +100,7 @@ function App() {
   }
   async function handleSearchSubmit(e) {
     e.preventDefault()
-    let SearchTerm = searchTerm.replaceAll('%','')
+    let SearchTerm = searchTerm.replaceAll('%', '')
     let unspaced = SearchTerm.replaceAll(' ', '%20')
     let movieList = await getMovies(unspaced)
     ifSaved(movieList)
@@ -148,9 +149,9 @@ function App() {
   const renderNav = showListProp => {
     return (
       <NavBar
-        myList={myList}
-        value={searchTerm}
-        showList={showListProp}
+        // myList={myList}
+        // showList={showListProp}
+        currentPage={history.location.pathname}
         receivedMovies={receivedMovies}
         onChange={searchChange}
         onSubmit={handleSearchSubmit}
@@ -161,46 +162,65 @@ function App() {
   const renderPage = () => {
     if (loggedIn) {
       return (
-        <Switch>
-          <Route path="/results">
-            {renderNav(false)}
-            {renderMural(movies)}
-          </Route>
-          <Route path="/myList">
-            {renderNav(true)}
-            {renderMural(myList)}
-          </Route>
-          <Route path="/summary">
-            {renderNav(true)}
-            <Summary movie={movieInfo}></Summary>
-          </Route>
-          <Route path="/login">
-            <Redirect to="/search" />
-          </Route>
-          <Route path="/search">
-            {renderNav(showMyList)}
-            <div className="app">
-              <Search
-                value={searchTerm}
-                onChange={searchChange}
-                onSubmit={handleSearchSubmit}
-              />
-            </div>
-          </Route>
-        </Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            {/* <Suspense fallback={<div>Loading...</div>}> */}
+            {/* <Route
+              path="/results"
+              render={() => {
+                return (
+                  <>
+                    {renderNav(false)}
+                    {renderMural(movies)}
+                  </>
+                )
+              }}
+            /> */}
+            {/* </Suspense> */}
+            <Route path="/results">
+              {renderNav(false)}
+              {renderMural(movies)}
+            </Route>
+            <Route path="/myList">
+              {renderNav(true)}
+              {renderMural(myList)}
+            </Route>
+            <Route path="/summary">
+              {renderNav(true)}
+              <Summary movie={movieInfo}></Summary>
+            </Route>
+            <Route path="/login">
+              <Redirect to="/search" />
+            </Route>
+            <Route path="/search">
+              {/* <Suspense fallback={<div>Loading...</div>}> */}
+              {renderNav()}
+              <div className="app">
+                <Search
+                  value={searchTerm}
+                  onChange={searchChange}
+                  onSubmit={handleSearchSubmit}
+                />
+              </div>
+              {/* </Suspense> */}
+            </Route>
+          </Switch>
+        </Suspense>
       )
     } else {
       return (
         <Switch>
           <Route path="/">
-            <Redirect to="/login" />
-            <Login handleLogin={handleLogin} />
-            {/* <Redirect to="/summary" />
-            <Summary movie={Aliens}></Summary> */}
-            {/* <Redirect to="/myList">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Redirect to="/login" />
+              <Login handleLogin={handleLogin} />
+              {/* <Redirect to="/summary" />
+              <Summary movie={Aliens}></Summary> */}
+              {/* <Redirect to="/myList">
               {renderNav(true)}
               {renderMural(myList)}
             </Redirect> */}
+            </Suspense>
           </Route>
         </Switch>
       )

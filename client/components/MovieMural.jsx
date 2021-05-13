@@ -3,13 +3,13 @@ import Movie from './Movie'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 
-function MovieMural({
+const MovieMural = ({
   receivedMovie,
   movieList,
   savedMovie,
   onSave,
   onSummaryClick
-}) {
+}) => {
   // console.log('movieList: ', savedMovie)
 
   let movies = movieList.map((movie, index) => {
