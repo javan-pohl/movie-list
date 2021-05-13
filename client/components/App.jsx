@@ -95,7 +95,8 @@ function App() {
     sendMovie(user.googleId, movies[i])
     setUserMovies(newMyList)
   }
-  async function setMoviesState(movies) {
+  async function setMovieList(movies) {
+    // as stated in updateMovieList, I split this logic out to get the feature to work
     await setMovies(movies)
     return
   }
@@ -123,7 +124,7 @@ function App() {
     })
     // I set this as a function to ensure that it was all running before continuing
     // MovieMural does not load properly without doing so
-    setMoviesState(newList)
+    setMovieList(newList)
   }
   function renderMural(thisList) {
     console.log
