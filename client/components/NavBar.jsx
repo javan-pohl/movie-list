@@ -133,11 +133,7 @@ function NavBar({
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          {/* {renderListLink()} */}
           {MyListLink()}
-          {/* <MyListLink /> */}
-          {/* {renderSearch()} */}
-          {/* <NavSearch /> */}
           {NavSearch()}
         </Toolbar>
       </AppBar>
