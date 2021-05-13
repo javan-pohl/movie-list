@@ -1,18 +1,14 @@
 import React, { useState, Fragment } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import InputBase from '@material-ui/core/InputBase'
 import { fade, makeStyles } from '@material-ui/core/styles'
-import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import LinkMUI from '@material-ui/core/Link'
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { Link } from 'react-router-dom'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import NavSearch from './NavSearch'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,13 +51,17 @@ const useStyles = makeStyles(theme => ({
     }
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    // padding: theme.spacing(0, 2),
+    padding: '0 2px 0 5px',
     height: '100%',
     position: 'absolute',
-    pointerEvents: 'none',
+    // pointerEvents: 'none',
+    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    // backgroundColor: 'green',
+    zIndex: '7'
   },
   inputRoot: {
     color: 'inherit'
@@ -81,49 +81,29 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function NavBar({
-  handleMyListClick,
-  myList,
-  onChange,
-  onSubmit,
-  receivedMovies,
-  showList,
-  value
-}) {
+function NavBar({ currentPage, onChange, onSubmit, handleMyListClick }) {
   const classes = useStyles()
-  let linkName = ''
-  let toLink = '/myList'
-  if (showList) {
-    toLink = receivedMovies ? '/results' : '/search'
+  function MyListLink() {
+    if (currentPage != '/myList') {
+      return (
+        <Typography className={classes.title} variant="h6" noWrap>
+          <LinkMUI
+            style={{ color: 'white', textDecoration: 'none', cursor: 'pointer'}}
+            onClick={() => handleMyListClick()}
+            to={'/myList'}
+          >
+            {'My List'}
+          </LinkMUI>
+        </Typography>
+      )
+    }
   }
-  if (myList.length > 0) {
-    linkName = showList ? (
-      <ArrowBackIcon className={classes.arrow} />
-    ) : (
-      'My List'
-    )
-  }
-
-  function renderListLink() {
-    return (
-      <Typography className={classes.title} variant="h6" noWrap>
-        <LinkMUI
-          style={{ color: 'white', textDecoration: 'none' }}
-          onClick={() => handleMyListClick()}
-          component={Link}
-          to={toLink}
-        >
-          {linkName}
-        </LinkMUI>
-      </Typography>
-    )
-  }
-  function renderSearch() {
-    if (receivedMovies) {
+  function NavSearch() {
+    if (currentPage != '/search' && currentPage != '/login') {
       return (
         <form autoComplete="off" onSubmit={e => onSubmit(e)} noValidate>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+            <div className={classes.searchIcon} >
               <SearchIcon onClick={e => onSubmit(e)} />
             </div>
             <InputBase
@@ -145,8 +125,8 @@ function NavBar({
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          {renderListLink()}
-          {renderSearch()}
+          {MyListLink()}
+          {NavSearch()}
         </Toolbar>
       </AppBar>
     </div>

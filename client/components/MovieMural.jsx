@@ -3,15 +3,8 @@ import Movie from './Movie'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 
-function MovieMural({
-  receivedMovie,
-  movieList,
-  savedMovie,
-  onSave,
-  onSummaryClick
-}) {
-  // console.log('movieList: ', savedMovie)
-
+function MovieMural({ movieList, onSave, onSummaryClick }) {
+  // console.log('movieList: ', movieList)
   let movies = movieList.map((movie, index) => {
     if (movie.poster_path) {
       return (

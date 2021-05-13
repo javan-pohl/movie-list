@@ -1,19 +1,17 @@
 import axios from 'axios'
-import React, { useState, useEffect, Fragment } from 'react'
-import {
-  HashRouter,
-  useHistory,
-  Redirect,
-  Router,
-  Route,
-  Switch,
-  Link
-} from 'react-router-dom'
+import React, { useState, useEffect, Fragment, Suspense } from 'react'
+import { useHistory, Redirect, Route, Switch } from 'react-router-dom'
+import loadable from '@loadable/component'
 import Login from './Login'
 import Search from './Search'
 import NavBar from './NavBar'
 import Summary from './Summary'
 import MovieMural from './MovieMural'
+// const Search = React.lazy(() => import('./Search'))
+// const NavBar = React.lazy(() => import('./NavBar'))
+// const Summary = React.lazy(() => import('./Summary'))
+// const MovieMural = React.lazy(() => import('./MovieMural'))
+
 import {
   getMPAA,
   getMovie,
@@ -24,23 +22,18 @@ import {
   sendMyUser
 } from './functions/ApiFunctions'
 // import { useCookies } from 'react-cookie'
-import { AliensFull as Aliens, User } from './testData/TestData'
+// import { AliensFull as Aliens, User } from './testData/TestData'
 
 function App() {
   // const [cookies, setCookie] = useCookies(['user'])
   const [user, setUser] = useState({})
   const [movies, setMovies] = useState([])
-  const [myList, setMyList] = useState([])
-  const [pageNum, setPageNum] = useState(1)
+  const [userMovies, setUserMovies] = useState([])
   const [loggedIn, setLoggedIn] = useState(false)
-  const [showMovie, setShowMovie] = useState(false)
   const [movieInfo, setMovieInfo] = useState([])
-  const [showMyList, setShowMyList] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const [showOneMovie, setShowOneMovie] = useState(false)
-  const [selectedMovie, setSelectedMovie] = useState('')
-  const [receivedMovies, setReceivedMovies] = useState(false)
   const [locationKeys, setLocationKeys] = useState([])
+
   let history = useHistory()
 
   useEffect(() => {
@@ -54,7 +47,6 @@ function App() {
           // Handle forward event
         } else {
           setLocationKeys(keys => [location.key, ...keys])
-          setShowMyList(false)
           // Handle back event
         }
       }
@@ -67,48 +59,60 @@ function App() {
     setUser(user)
     setLoggedIn(true)
   }
-
-  function localSave(i) {
-    let newList = movies.slice()
-    let newMyList = myList.slice()
-    newList[i].saved = true
-    newMyList.push(newList[i])
-    sendMovie(user.googleId, movies[i])
-    setMyList(newMyList)
-  }
-  async function localUnsave(i) {
-    let movie = movies.find(movie => movie.id == i.id)
-    let newMyList = myList.filter(movie => movie.id != i.id)
-    removeMovie(user.googleId, i.id)
-    await setMyList(newMyList)
-    ifSaved(movies, newMyList)
-  }
   function handleLogin(response) {
-    sendUser(response.profileObj)
+    sendUserGetList(response.profileObj)
     createUser(response.profileObj)
   }
   function handleMyListClick() {
-    setShowMyList(showMyList ? false : true)
+    history.push('/myList')
   }
   function handleSaveClick(obj) {
-    obj.movie.saved ? localUnsave(obj.movie) : localSave(obj.index)
+    obj.movie.saved ? unsaveMovie(obj.movie) : saveMovie(obj.index)
+  }
+  function handleSearchChange(event) {
+    setSearchTerm(event.target.value)
+  }
+  async function handleSearchSubmit(e) {
+    e.preventDefault()
+    if (searchTerm) {
+      let SearchTerm = searchTerm.replaceAll('%', '')
+      let unspaced = SearchTerm.replaceAll(' ', '%20')
+      let movieList = await getMovies(unspaced)
+      updateMovieList(movieList)
+      history.push(`/results/${unspaced}`)
+    }
   }
   async function handleSummaryClick(id) {
     let movie = await getMovie(id)
     setMovieInfo(movie)
     history.push(`/summary/${id}`)
   }
-  async function handleSearchSubmit(e) {
-    e.preventDefault()
-    let SearchTerm = searchTerm.replaceAll('%','')
-    let unspaced = SearchTerm.replaceAll(' ', '%20')
-    let movieList = await getMovies(unspaced)
-    ifSaved(movieList)
-    setShowMyList(false)
-    history.push(`/results/${unspaced}`)
+  function saveMovie(i) {
+    let newList = movies.slice()
+    let newMyList = userMovies.slice()
+    newList[i].saved = true
+    newMyList.push(newList[i])
+    sendMovie(user.googleId, movies[i])
+    setUserMovies(newMyList)
   }
-  async function ifSaved(movieList, newMyList) {
-    let list = newMyList || myList
+  async function setMovieList(movies) {
+    // as stated in updateMovieList, I split this logic out to get the feature to work
+    await setMovies(movies)
+    return
+  }
+  async function unsaveMovie(i) {
+    let movie = movies.find(movie => movie.id == i.id)
+    let newMyList = userMovies.filter(movie => movie.id != i.id)
+    removeMovie(user.googleId, i.id)
+    await setUserMovies(newMyList)
+    updateMovieList(movies, newMyList)
+  }
+  async function sendUserGetList(user) {
+    let movies = await sendMyUser(user)
+    setUserMovies(movies)
+  }
+  async function updateMovieList(movieList, newMyList) {
+    let list = newMyList || userMovies
     let newList = movieList.map((movie, index) => {
       movie.saved = list.reduce((accum, savedMovie) => {
         if (movie.id == savedMovie.id) {
@@ -118,90 +122,70 @@ function App() {
       }, false)
       return movie
     })
-    setMoviesState(newList)
+    // I set this as a function to ensure that it was all running before continuing
+    // MovieMural does not load properly without doing so
+    setMovieList(newList)
   }
-  function searchChange(event) {
-    setSearchTerm(event.target.value)
-  }
-  async function sendUser(user) {
-    let movies = await sendMyUser(user)
-    setMyList(movies)
-  }
-  async function setMoviesState(movies) {
-    await setMovies(movies)
-    await setReceivedMovies(true)
-    return
-  }
-  const renderMural = thisList => {
+  function renderMural(thisList) {
+    console.log
     return (
       <div className="app">
         <MovieMural
-          key={true}
-          savedMovies={myList}
           movieList={thisList}
-          receivedMovies={true}
           onSave={movie => handleSaveClick(movie)}
           onSummaryClick={id => handleSummaryClick(id)}
         />
       </div>
     )
   }
-  const renderNav = showListProp => {
+  function renderNav() {
     return (
       <NavBar
-        myList={myList}
-        value={searchTerm}
-        showList={showListProp}
-        receivedMovies={receivedMovies}
-        onChange={searchChange}
+        currentPage={history.location.pathname}
+        onChange={handleSearchChange}
         onSubmit={handleSearchSubmit}
         handleMyListClick={handleMyListClick}
       />
     )
   }
-  const renderPage = () => {
+  function renderPage() {
     if (loggedIn) {
       return (
-        <Switch>
-          <Route path="/results">
-            {renderNav(false)}
-            {renderMural(movies)}
-          </Route>
-          <Route path="/myList">
-            {renderNav(true)}
-            {renderMural(myList)}
-          </Route>
-          <Route path="/summary">
-            {renderNav(true)}
-            <Summary movie={movieInfo}></Summary>
-          </Route>
-          <Route path="/login">
-            <Redirect to="/search" />
-          </Route>
-          <Route path="/search">
-            {renderNav(showMyList)}
-            <div className="app">
-              <Search
-                value={searchTerm}
-                onChange={searchChange}
-                onSubmit={handleSearchSubmit}
-              />
-            </div>
-          </Route>
-        </Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          {renderNav()}
+          <Switch>
+            <Route path="/results">{renderMural(movies)}</Route>
+            <Route path="/myList">{renderMural(userMovies)}</Route>
+            <Route path="/summary">
+              <Summary movie={movieInfo}></Summary>
+            </Route>
+            <Route path="/login">
+              <Redirect to="/search" />
+            </Route>
+            <Route path="/search">
+                <Search
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  onSubmit={handleSearchSubmit}
+                />
+            </Route>
+          </Switch>
+        </Suspense>
       )
     } else {
       return (
         <Switch>
           <Route path="/">
-            <Redirect to="/login" />
-            <Login handleLogin={handleLogin} />
-            {/* <Redirect to="/summary" />
-            <Summary movie={Aliens}></Summary> */}
-            {/* <Redirect to="/myList">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Redirect to="/login" />
+              <Login handleLogin={handleLogin} />
+              {/* <Redirect to="/summary" />
+              <Summary movie={Aliens}></Summary> */}
+              {/* <Redirect to="/userMovies">
               {renderNav(true)}
-              {renderMural(myList)}
+              {renderMural(userMovies)}
             </Redirect> */}
+            </Suspense>
           </Route>
         </Switch>
       )
