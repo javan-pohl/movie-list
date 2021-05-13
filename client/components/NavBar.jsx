@@ -9,10 +9,6 @@ import LinkMUI from '@material-ui/core/Link'
 import Button from '@material-ui/core/Button'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { Link } from 'react-router-dom'
-// import NavSearch from './NavSearch'
-// import MenuIcon from '@material-ui/icons/Menu'
-// import TextField from '@material-ui/core/TextField'
-// import IconButton from '@material-ui/core/IconButton'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,13 +51,17 @@ const useStyles = makeStyles(theme => ({
     }
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    // padding: theme.spacing(0, 2),
+    padding: '0 2px 0 5px',
     height: '100%',
     position: 'absolute',
-    pointerEvents: 'none',
+    // pointerEvents: 'none',
+    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    // backgroundColor: 'green',
+    zIndex: '7'
   },
   inputRoot: {
     color: 'inherit'
@@ -81,23 +81,15 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function NavBar({
-  currentPage,
-  onChange,
-  onSubmit,
-  receivedMovies,
-  handleMyListClick
-}) {
+function NavBar({ currentPage, onChange, onSubmit, handleMyListClick }) {
   const classes = useStyles()
-
   function MyListLink() {
     if (currentPage != '/myList') {
       return (
         <Typography className={classes.title} variant="h6" noWrap>
           <LinkMUI
-            style={{ color: 'white', textDecoration: 'none' }}
+            style={{ color: 'white', textDecoration: 'none', cursor: 'pointer'}}
             onClick={() => handleMyListClick()}
-            component={Link}
             to={'/myList'}
           >
             {'My List'}
@@ -107,11 +99,11 @@ function NavBar({
     }
   }
   function NavSearch() {
-    if (currentPage != '/search') {
+    if (currentPage != '/search' && currentPage != '/login') {
       return (
         <form autoComplete="off" onSubmit={e => onSubmit(e)} noValidate>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+            <div className={classes.searchIcon} >
               <SearchIcon onClick={e => onSubmit(e)} />
             </div>
             <InputBase

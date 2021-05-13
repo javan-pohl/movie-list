@@ -5,10 +5,7 @@ import Button from '@material-ui/core/Button'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import MovieSaveStar from './MovieSaveStar'
 
-function Movie({ movie, onClick, onSave}) {
-  // console.log('is movie in mylist?: ', saved)
-  // console.log('MoviesM movie: ', movie)
-
+function Movie({ movie, onClick, onSave }) {
   const poster_url = `https://image.tmdb.org/t/p/w200${movie.poster_path}`
   return (
     <Grid item>
