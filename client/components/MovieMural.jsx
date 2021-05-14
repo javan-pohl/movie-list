@@ -2,7 +2,6 @@ import React from 'react'
 import Movie from './Movie'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
-import (/* webpackPrefetch: true*/ './Summary')
 
 function MovieMural({ movieList, onSave, onSummaryClick }) {
   // console.log('movieList: ', movieList)

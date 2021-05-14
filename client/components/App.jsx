@@ -1,16 +1,18 @@
 import React, { useState, useEffect, Fragment, Suspense } from 'react'
 import { useHistory, Redirect, Route, Switch } from 'react-router-dom'
-// import loadable from '@loadable/component'
+import loadable from '@loadable/component'
 import Login from './Login'
-import ComponentLoader from './functions/ComponentLoader'
-// import Search from './Search'
-// import NavBar from './NavBar'
-// import Summary from './Summary'
-// import MovieMural from './MovieMural'
-const Search = React.lazy(() => import('./Search'))
-const NavBar = React.lazy(() => import('./NavBar'))
-const Summary = React.lazy(() => import('./Summary'))
-const MovieMural = React.lazy(() => import('./MovieMural'))
+
+// React.lazy method
+// const Search = React.lazy(() => import('./Search'))
+// const NavBar = React.lazy(() => import('./NavBar'))
+// const Summary = React.lazy(() => import('./Summary'))
+// const MovieMural = React.lazy(() => import('./MovieMural'))
+// loadable-components method
+const Search = loadable(() => import('./Search'))
+const NavBar = loadable(() => import('./NavBar'))
+const Summary = loadable(() => import('./Summary'))
+const MovieMural = loadable(() => import('./MovieMural'))
 
 import {
   getMPAA,
@@ -21,11 +23,8 @@ import {
   sendMovie,
   sendMyUser
 } from './functions/ApiFunctions'
-// import { useCookies } from 'react-cookie'
-// import { AliensFull as Aliens, User } from './testData/TestData'
 
 function App() {
-  // const [cookies, setCookie] = useCookies(['user'])
   const [user, setUser] = useState({})
   const [movies, setMovies] = useState([])
   const [userMovies, setUserMovies] = useState([])
@@ -127,7 +126,7 @@ function App() {
     setMovieList(newList)
   }
   function renderMural(thisList) {
-    console.log
+    Summary.preload()
     return (
       <div className="app">
         <MovieMural
@@ -179,12 +178,6 @@ function App() {
             <Suspense fallback={<div>Loading...</div>}>
               <Redirect to="/login" />
               <Login handleLogin={handleLogin} />
-              {/* <Redirect to="/summary" />
-              <Summary movie={Aliens}></Summary> */}
-              {/* <Redirect to="/userMovies">
-              {renderNav(true)}
-              {renderMural(userMovies)}
-            </Redirect> */}
             </Suspense>
           </Route>
         </Switch>
