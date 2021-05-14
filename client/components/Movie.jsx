@@ -1,22 +1,23 @@
-import React, { useState, Fragment } from 'react'
-import Fade from 'react-reveal/Fade'
+// import React, { Fragment } from 'react'
+// import { Fragment } from 'react'
+import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
 import MovieSaveStar from './MovieSaveStar'
+import styles from './Movie.module.css'
 
 function Movie({ movie, onClick, onSave }) {
   const poster_url = `https://image.tmdb.org/t/p/w200${movie.poster_path}`
   return (
     <Grid item>
-      <div className="flip-card">
-        <div className="flip-card-inner">
-          <div className="flip-card-front">
+      <div className={styles.flipCard}>
+        <div className={styles.flipCardInner}>
+          <div className={styles.flipCardFront}>
             <div>
-              <img src={poster_url} className="movie-poster"></img>
+              <img src={poster_url} className={styles.moviePoster}></img>
             </div>
           </div>
-          <div className="flip-card-back">
+          <div className={styles.flipCardBack}>
             <Grid
               container
               spacing={0}
