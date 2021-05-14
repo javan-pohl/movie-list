@@ -1,17 +1,16 @@
-import axios from 'axios'
 import React, { useState, useEffect, Fragment, Suspense } from 'react'
 import { useHistory, Redirect, Route, Switch } from 'react-router-dom'
-import loadable from '@loadable/component'
+// import loadable from '@loadable/component'
 import Login from './Login'
-import Search from './Search'
-import NavBar from './NavBar'
-import Summary from './Summary'
-import MovieMural from './MovieMural'
-
-// const Search = React.lazy(() => import('./Search'))
-// const NavBar = React.lazy(() => import('./NavBar'))
-// const Summary = React.lazy(() => import('./Summary'))
-// const MovieMural = React.lazy(() => import('./MovieMural'))
+import ComponentLoader from './functions/ComponentLoader'
+// import Search from './Search'
+// import NavBar from './NavBar'
+// import Summary from './Summary'
+// import MovieMural from './MovieMural'
+const Search = React.lazy(() => import('./Search'))
+const NavBar = React.lazy(() => import('./NavBar'))
+const Summary = React.lazy(() => import('./Summary'))
+const MovieMural = React.lazy(() => import('./MovieMural'))
 
 import {
   getMPAA,
@@ -164,11 +163,11 @@ function App() {
               <Redirect to="/search" />
             </Route>
             <Route path="/search">
-                <Search
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                  onSubmit={handleSearchSubmit}
-                />
+              <Search
+                value={searchTerm}
+                onChange={handleSearchChange}
+                onSubmit={handleSearchSubmit}
+              />
             </Route>
           </Switch>
         </Suspense>

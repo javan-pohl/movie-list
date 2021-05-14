@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from 'react'
-import GoogleLogin from 'react-google-login'
+import React from 'react'
+import { GoogleLogin } from 'react-google-login'
 import { Link } from 'react-router-dom'
 
 const responseGoogle = response => {

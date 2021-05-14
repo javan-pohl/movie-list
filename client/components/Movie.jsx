@@ -1,8 +1,8 @@
-import React, { useState, Fragment } from 'react'
-import Fade from 'react-reveal/Fade'
+// import React, { Fragment } from 'react'
+// import { Fragment } from 'react'
+import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
 import MovieSaveStar from './MovieSaveStar'
 import styles from './Movie.module.css'
 
