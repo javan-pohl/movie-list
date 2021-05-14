@@ -131,7 +131,7 @@ function App() {
   }
   function renderMural(thisList) {
     // preload is a function of loadable/component
-    // Summary.preload()
+    Summary.preload()
     return (
       <div className="app">
         <MovieMural
