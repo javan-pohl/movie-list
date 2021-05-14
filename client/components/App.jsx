@@ -126,6 +126,7 @@ function App() {
     setMovieList(newList)
   }
   function renderMural(thisList) {
+    // preload is a function of loadable/component
     Summary.preload()
     return (
       <div className="app">

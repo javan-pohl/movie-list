@@ -27,7 +27,6 @@ const theme = createMuiTheme({
 })
 
 function Summary({ movie }) {
-  // console.log('movie: ', movie)
   const MPAA = getMPAA(movie)
   const genres = movie.genres.map(obj => obj.name).join(', ')
   const runtime = movie.runtime
