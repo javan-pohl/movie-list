@@ -22,6 +22,7 @@ coverage
 build/
 dist/
 public/*.jsx
+public/*.gz
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:

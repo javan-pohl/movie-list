@@ -1,4 +1,3 @@
-const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path')
 
 const SRC_DIR = path.join(__dirname, 'client', 'components')
@@ -28,6 +27,5 @@ module.exports = {
   // mode: 'production',
   resolve: {
     extensions: ['.js', '.jsx']
-  },
-  plugins: [new CompressionPlugin()]
+  }
 }
