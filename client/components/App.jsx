@@ -15,11 +15,11 @@ import Login from './Login'
 // const NavBar = loadable(() => import('./NavBar'))
 const MovieMural = loadable(() => import('./MovieMural'))
 let Summary
-// let Search
-// let NavBar
+let Search
+let NavBar
 
-const Search = loadable(() => import(/* webpackPrefetch: true */ './Search'))
-const NavBar = loadable(() => import(/* webpackPrefetch: true */ './NavBar'))
+// const Search = loadable(() => import(/* webpackPrefetch: true */ './Search'))
+// const NavBar = loadable(() => import(/* webpackPrefetch: true */ './NavBar'))
 // const Summary = loadable(() => import(/* webpackPrefetch: true */ './Summary'))
 // const MovieMural = loadable(() => import(/* webpackPrefetch: true */ './MovieMural'))
 
@@ -68,10 +68,12 @@ function App() {
     setLoggedIn(true)
   }
   function handleLogin(response) {
-    // Search = loadable(() => import('./Search'))
-    // NavBar = loadable(() => import('./NavBar'))
     sendUserGetList(response.profileObj)
     createUser(response.profileObj)
+  }
+  function handleLoginClick() {
+    Search = loadable(() => import('./Search'))
+    NavBar = loadable(() => import('./NavBar'))
   }
   function handleMyListClick() {
     history.push('/myList')
@@ -190,7 +192,7 @@ function App() {
           <Route path="/">
             <Suspense fallback={<div>Loading...</div>}>
               <Redirect to="/login" />
-              <Login handleLogin={handleLogin} />
+              <Login handleLogin={handleLogin} onClick={handleLoginClick} />
             </Suspense>
           </Route>
         </Switch>
