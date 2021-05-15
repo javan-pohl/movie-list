@@ -1,4 +1,6 @@
 const express = require('express');
+// const expressStaticGzip = require("express-static-gzip");
+// var compression = require('compression')
 const db = require('../database/db/index.js');
 const path = require('path');
 const cors = require('cors');
@@ -18,6 +20,8 @@ app.use(morgan('dev'));
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 
+// app.use(compression())
+// app.use(expressStaticGzip(path.join(__dirname, '..', 'public')));
 // serve the client files (webpage)
 app.use(express.static(path.join(__dirname, '..', 'public')));
 

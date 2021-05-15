@@ -11,13 +11,15 @@ import Login from './Login'
 // loadable-components method
 
 // const Summary = loadable(() => import( './Summary'))
-const Search = loadable(() => import('./Search'))
-const NavBar = loadable(() => import('./NavBar'))
+// const Search = loadable(() => import('./Search'))
+// const NavBar = loadable(() => import('./NavBar'))
 const MovieMural = loadable(() => import('./MovieMural'))
 let Summary
+// let Search
+// let NavBar
 
-// const Search = loadable(() => import(/* webpackPrefetch: true */ './Search'))
-// const NavBar = loadable(() => import(/* webpackPrefetch: true */ './NavBar'))
+const Search = loadable(() => import(/* webpackPrefetch: true */ './Search'))
+const NavBar = loadable(() => import(/* webpackPrefetch: true */ './NavBar'))
 // const Summary = loadable(() => import(/* webpackPrefetch: true */ './Summary'))
 // const MovieMural = loadable(() => import(/* webpackPrefetch: true */ './MovieMural'))
 
@@ -66,6 +68,8 @@ function App() {
     setLoggedIn(true)
   }
   function handleLogin(response) {
+    // Search = loadable(() => import('./Search'))
+    // NavBar = loadable(() => import('./NavBar'))
     sendUserGetList(response.profileObj)
     createUser(response.profileObj)
   }
