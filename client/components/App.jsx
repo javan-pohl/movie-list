@@ -9,10 +9,17 @@ import Login from './Login'
 // const Summary = React.lazy(() => import('./Summary'))
 // const MovieMural = React.lazy(() => import('./MovieMural'))
 // loadable-components method
+
+// const Summary = loadable(() => import( './Summary'))
 const Search = loadable(() => import('./Search'))
 const NavBar = loadable(() => import('./NavBar'))
-const Summary = loadable(() => import('./Summary'))
 const MovieMural = loadable(() => import('./MovieMural'))
+let Summary
+
+// const Search = loadable(() => import(/* webpackPrefetch: true */ './Search'))
+// const NavBar = loadable(() => import(/* webpackPrefetch: true */ './NavBar'))
+// const Summary = loadable(() => import(/* webpackPrefetch: true */ './Summary'))
+// const MovieMural = loadable(() => import(/* webpackPrefetch: true */ './MovieMural'))
 
 import {
   getMPAA,
@@ -127,7 +134,8 @@ function App() {
   }
   function renderMural(thisList) {
     // preload is a function of loadable/component
-    Summary.preload()
+    // Summary.preload()
+    Summary = loadable(() => import(/* webpackPrefetch: true */ './Summary'))
     return (
       <div className="app">
         <MovieMural

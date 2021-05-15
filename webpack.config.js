@@ -1,7 +1,8 @@
-const path = require('path');
+const CompressionPlugin = require("compression-webpack-plugin");
+const path = require('path')
 
-const SRC_DIR = path.join(__dirname, 'client', 'components');
-const OUT_DIR = path.join(__dirname, 'public');
+const SRC_DIR = path.join(__dirname, 'client', 'components')
+const OUT_DIR = path.join(__dirname, 'public')
 // const OUT_DIR = path.join(__dirname, 'proxy');
 
 module.exports = {
@@ -13,16 +14,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test:/\.(js|jsx)$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader'
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
@@ -30,5 +28,6 @@ module.exports = {
   // mode: 'production',
   resolve: {
     extensions: ['.js', '.jsx']
-  }
-};
+  },
+  plugins: [new CompressionPlugin()]
+}
