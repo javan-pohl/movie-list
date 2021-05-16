@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import MovieSaveStar from './MovieSaveStar'
 import styles from './Movie.module.css'
 
-function Movie({ movie, onClick, onSave }) {
+function Movie({ movie, onSummaryClick, onSave }) {
   const poster_url = `https://image.tmdb.org/t/p/w200${movie.poster_path}`
   return (
     <Grid item>
@@ -32,7 +32,7 @@ function Movie({ movie, onClick, onSave }) {
 
               <Grid item>
                 <Button
-                  onClick={() => onClick()}
+                  onClick={() => onSummaryClick()}
                   style={{ backgroundColor: 'grey', marginTop: '40%' }}
                 >
                   Summary
