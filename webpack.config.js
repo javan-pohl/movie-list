@@ -1,5 +1,6 @@
 const path = require('path')
-const CompressionPlugin = require("compression-webpack-plugin");
+// const CompressionPlugin = require("compression-webpack-plugin");
+var BrotliPlugin = require('brotli-webpack-plugin');
 
 const SRC_DIR = path.join(__dirname, 'client', 'components')
 const OUT_DIR = path.join(__dirname, 'public')
@@ -29,5 +30,12 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  plugins: [new CompressionPlugin()]
+  // plugins: [new CompressionPlugin()]
+  plugins: [
+    // ...
+    new BrotliPlugin({
+      asset: '[file].br',
+      test: /\.(js|jsx)$/
+    })
+  ]
 }

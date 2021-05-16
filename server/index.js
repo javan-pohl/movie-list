@@ -20,8 +20,16 @@ app.use(morgan('dev'));
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 
+// Trying to configure the server to serve compressed assets
+app.get('*.jsx', (req, res, next) => {
+  req.url = req.url + '.br';
+  res.set('Content-Encoding', 'br');
+  res.set('Content-Type', 'application/javascript; charset=UTF-8');
+  next();
+});
 // app.use(compression())
 // app.use(expressStaticGzip(path.join(__dirname, '..', 'public')));
+
 // serve the client files (webpage)
 app.use(express.static(path.join(__dirname, '..', 'public')));
 

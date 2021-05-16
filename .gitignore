@@ -23,6 +23,7 @@ build/
 dist/
 public/*.jsx
 public/*.gz
+public/*.br
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
