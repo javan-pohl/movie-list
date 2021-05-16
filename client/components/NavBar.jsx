@@ -7,7 +7,6 @@ import { fade, makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import LinkMUI from '@material-ui/core/Link'
 import Button from '@material-ui/core/Button'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
@@ -19,9 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
   arrow: {
     paddingTop: '4px'
-    // [theme.breakpoints.up('sm')]: {
-    //   display: 'none'
-    // }
+
   },
   title: {
     flexGrow: 2,
@@ -51,16 +48,13 @@ const useStyles = makeStyles(theme => ({
     }
   },
   searchIcon: {
-    // padding: theme.spacing(0, 2),
     padding: '0 2px 0 5px',
     height: '100%',
     position: 'absolute',
-    // pointerEvents: 'none',
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'green',
     zIndex: '7'
   },
   inputRoot: {
@@ -82,7 +76,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function NavBar({ currentPage, onChange, onSubmit, handleMyListClick, searchTerm }) {
-  console.log('searchTerm: ', searchTerm)
   const classes = useStyles()
   function MyListLink() {
     if (currentPage != '/myList') {
