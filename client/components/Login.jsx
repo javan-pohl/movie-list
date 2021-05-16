@@ -2,10 +2,6 @@ import React from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { Link } from 'react-router-dom'
 
-const responseGoogle = response => {
-  console.log(response)
-}
-
 const Login = ({ handleLogin, onClick }) => {
   return (
     <Link to="/search">

@@ -6,12 +6,7 @@ html {
   margin: 0;
   padding: 0;
 }
-:root {
-  --search-height: 200px;
-  --search-width: 400px;
-  --popup-height: 1000px;
-  --popup-width: 1000px;
-}
+
 #main {
   height: 100%;
   width: 100%;
