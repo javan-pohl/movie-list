@@ -162,9 +162,6 @@ function App() {
             <Route path="/summary">
               <Summary movie={movieInfo}></Summary>
             </Route>
-            <Route path="/login">
-              <Redirect to="/search" />
-            </Route>
             <Route path="/search">
               <Search
                 value={searchTerm}
