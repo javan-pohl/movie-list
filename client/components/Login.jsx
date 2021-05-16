@@ -2,6 +2,8 @@ import React from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { Link } from 'react-router-dom'
 
+// css for this module is now directly in the html file
+
 const Login = ({ handleLogin, onClick }) => {
   return (
     <Link to="/search">

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Fragment, Suspense } from 'react'
-import { useHistory, Redirect, Route, Switch } from 'react-router-dom'
+import React, { useState, useEffect, Suspense } from 'react'
+import { useHistory, Route, Switch } from 'react-router-dom'
 import loadable from '@loadable/component'
 import Login from './Login'
 
@@ -49,6 +49,7 @@ function App() {
   function createUser(user) {
     // my user info (for keeping me logged in to test things):
     // user = User
+    history.push('/search')
     setUser(user)
     setLoggedIn(true)
   }
@@ -84,6 +85,7 @@ function App() {
       setSearchTerm('')
       let unspaced = SearchTerm.replaceAll(' ', '%20')
       let movieList = await getMovies(unspaced)
+      console.log('movieList: ', movieList)
       updateMovieList(movieList)
       history.push(`/results/${unspaced}`)
     }
@@ -177,7 +179,6 @@ function App() {
       return (
         <Switch>
           <Route path="/">
-            <Redirect to="/login" />
             <Login handleLogin={handleLogin} onClick={handleLoginClick} />
           </Route>
         </Switch>

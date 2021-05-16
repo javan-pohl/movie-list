@@ -10,7 +10,8 @@ module.exports = {
   entry: path.join(SRC_DIR, 'index.jsx'),
   output: {
     path: OUT_DIR,
-    filename: 'app.jsx'
+    filename: '[name].jsx',
+    chunkFilename: '[name].jsx'
   },
   module: {
     rules: [
