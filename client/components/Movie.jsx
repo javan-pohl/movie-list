@@ -10,7 +10,7 @@ function Movie({ movie, onSummaryClick, onSave }) {
   const poster_url = `https://image.tmdb.org/t/p/w200${movie.poster_path}`
   return (
     <Grid item>
-      <div className={styles.flipCard}>
+      <div className={styles.flipCard} onClick={() => console.log('movie poster clicked')}>
         <div className={styles.flipCardInner}>
           <div className={styles.flipCardFront}>
             <div>
