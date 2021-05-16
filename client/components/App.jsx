@@ -6,7 +6,7 @@ import Login from './Login'
 const MovieMural = loadable(() => import('./MovieMural'))
 const Search = loadable(() => import('./Search'))
 const NavBar = loadable(() => import('./NavBar'))
-const Summary = loadable(() => import('./Summary'))
+const Summary =  loadable(() => import('./Summary'))
 
 import {
   getMPAA,
@@ -69,6 +69,11 @@ function App() {
   function handleSaveClick(obj) {
     obj.movie.saved ? unsaveMovie(obj.movie) : saveMovie(obj.index)
   }
+  async function handleSummaryClick(id) {
+    let movie = await getMovie(id)
+    setMovieInfo(movie)
+    history.push(`/summary/${id}`)
+  }
   function handleSearchChange(event) {
     setSearchTerm(event.target.value)
   }
@@ -81,11 +86,6 @@ function App() {
       updateMovieList(movieList)
       history.push(`/results/${unspaced}`)
     }
-  }
-  async function handleSummaryClick(id) {
-    let movie = await getMovie(id)
-    setMovieInfo(movie)
-    history.push(`/summary/${id}`)
   }
   function saveMovie(i) {
     let newList = movies.slice()

@@ -33,7 +33,9 @@ function Summary({ movie }) {
   const runtimeStr = `${Math.floor(runtime / 60)}hr ${runtime % 60}m`
 
   const poster_url = `https://image.tmdb.org/t/p/w300${movie.poster_path}`
-  const backdrop_url = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+  // const backdrop_url = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+  const backdrop_url = `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`
+  // const backdrop_url = `https://image.tmdb.org/t/p/w300${movie.backdrop_path}`
 
   const backdrop_style = {
     backgroundImage: `linear-gradient(rgb(0,0,0,0.85),

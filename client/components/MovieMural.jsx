@@ -11,7 +11,7 @@ function MovieMural({ movieList, onSave, onSummaryClick }) {
           key={index}
           movie={movie}
           onSave={() => onSave({ movie, index })}
-          onClick={() => onSummaryClick(movie.id)}
+          onSummaryClick={() => onSummaryClick(movie.id)}
         />
       )
     }
