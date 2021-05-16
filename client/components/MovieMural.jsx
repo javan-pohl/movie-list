@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 
 function MovieMural({ movieList, onSave, onSummaryClick }) {
+  let windowWidth = window.innerWidth
   let movies = movieList.map((movie, index) => {
     if (movie.poster_path) {
       return (
@@ -12,6 +13,7 @@ function MovieMural({ movieList, onSave, onSummaryClick }) {
           movie={movie}
           onSave={() => onSave({ movie, index })}
           onSummaryClick={() => onSummaryClick(movie.id)}
+          windowWidth={windowWidth}
         />
       )
     }

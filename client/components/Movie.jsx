@@ -1,13 +1,12 @@
-// import React, { Fragment } from 'react'
-// import { Fragment } from 'react'
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import MovieSaveStar from './MovieSaveStar'
 import styles from './Movie.module.css'
 
-function Movie({ movie, onSummaryClick, onSave }) {
-  const poster_url = `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+function Movie({ movie, onSummaryClick, onSave, windowWidth }) {
+  const posterSize = windowWidth <= 600 ? 154 : 200
+  const poster_url = `https://image.tmdb.org/t/p/w${posterSize}${movie.poster_path}`
   return (
     <Grid item>
       <div className={styles.flipCard}>
