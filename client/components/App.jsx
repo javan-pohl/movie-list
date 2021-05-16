@@ -6,7 +6,7 @@ import Login from './Login'
 const MovieMural = loadable(() => import('./MovieMural'))
 const Search = loadable(() => import('./Search'))
 const NavBar = loadable(() => import('./NavBar'))
-const Summary =  loadable(() => import('./Summary'))
+const Summary = loadable(() => import('./Summary'))
 
 import {
   getMPAA,
@@ -81,6 +81,7 @@ function App() {
     e.preventDefault()
     if (searchTerm) {
       let SearchTerm = searchTerm.replaceAll('%', '')
+      setSearchTerm('')
       let unspaced = SearchTerm.replaceAll(' ', '%20')
       let movieList = await getMovies(unspaced)
       updateMovieList(movieList)
@@ -137,13 +138,14 @@ function App() {
       </div>
     )
   }
-  function renderNav() {
+  function renderNav(term) {
     return (
       <NavBar
         currentPage={history.location.pathname}
         onChange={handleSearchChange}
         onSubmit={handleSearchSubmit}
         handleMyListClick={handleMyListClick}
+        searchTerm={term}
       />
     )
   }
@@ -151,7 +153,7 @@ function App() {
     if (loggedIn) {
       return (
         <Suspense fallback={<div>Loading...</div>}>
-          {renderNav()}
+          {renderNav(searchTerm)}
           <Switch>
             <Route path="/results">{renderMural(movies)}</Route>
             <Route path="/myList">{renderMural(userMovies)}</Route>

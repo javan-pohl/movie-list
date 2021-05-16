@@ -81,7 +81,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function NavBar({ currentPage, onChange, onSubmit, handleMyListClick }) {
+function NavBar({ currentPage, onChange, onSubmit, handleMyListClick, searchTerm }) {
+  console.log('searchTerm: ', searchTerm)
   const classes = useStyles()
   function MyListLink() {
     if (currentPage != '/myList') {
@@ -108,6 +109,7 @@ function NavBar({ currentPage, onChange, onSubmit, handleMyListClick }) {
             </div>
             <InputBase
               onChange={e => onChange(e)}
+              value={searchTerm}
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
